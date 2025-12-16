@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect x="0" y="0" width="1200" height="630" fill="#020617"></rect>
+
+  <!-- Logo (transparent background) -->
+  <g transform="translate(120,230)">
+    <!-- Tag -->
+    <path d="M0 10h120l40 40-40 40H0a16 16 0 0 1-16-16V26a16 16 0 0 1 16-16z" fill="#2563EB"></path>
+    <circle cx="24" cy="50" r="6" fill="#fff"></circle>
+
+    <!-- Text (baseline adjusted +2px) -->
+    <text x="170" y="70" font-size="44" font-weight="800" fill="#fff" font-family="Inter, system-ui, sans-serif">
+      Labelly
+    </text>
+  </g>
+
+  <!-- Headline -->
+  <text x="120" y="380" font-size="42" font-weight="700" fill="#E5E7EB" font-family="Inter, system-ui, sans-serif">
+    通販サイトの「前提条件」を可視化
+  </text>
+
+  <!-- Sub copy -->
+  <text x="120" y="440" font-size="26" fill="#94A3B8" font-family="Inter, system-ui, sans-serif">
+    配送・返品・流通の傾向を、公開情報から推定
+  </text>
+
+  <!-- Signal dots -->
+  <circle cx="120" cy="490" r="6" fill="#22C55E"></circle>
+  <circle cx="140" cy="490" r="6" fill="#F59E0B"></circle>
+  <circle cx="160" cy="490" r="6" fill="#F97316"></circle>
+</svg>
