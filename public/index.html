@@ -60,15 +60,14 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
+      /* 縦中央 */
       justify-content: center;
       gap: 14px;
     }
 
-
     .brand svg {
       display: block;
-      /* ←これが効く（ベースライン由来のズレ防止） */
-      flex: 0 0 auto;
+      flex-shrink: 0;
     }
 
     .brand .word {
@@ -77,12 +76,12 @@
       font-size: 28px;
       color: #fff;
       line-height: 1;
-      /* ←縦の余白を消す */
+      /* ← これが重要 */
       transform: none;
-      /* ←これを消すのが最重要 */
+      /* ← 削除 */
+      margin: 0;
+      padding: 0;
     }
-
-
 
     .wrap {
       max-width: 980px;
