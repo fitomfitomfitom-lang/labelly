@@ -75,6 +75,32 @@
       /* transformがあると環境でズレるので無効化 */
     }
 
+    /* ===== Header (final) ===== */
+    .site-header {
+      padding: 18px 18px;
+      background: linear-gradient(180deg, var(--nav), var(--nav2));
+      box-shadow: 0 14px 50px rgba(0, 0, 0, .25);
+      display: flex;
+      justify-content: center;
+    }
+
+    .logo {
+      margin: 0;
+    }
+
+    .logo a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo img {
+      display: block;
+      /* ← baselineズレ完全排除 */
+      height: 44px;
+      /* SVGを安定させる */
+      width: auto;
+    }
 
     .wrap {
       max-width: 980px;
@@ -610,16 +636,12 @@
 </head>
 
 <body>
-  <header>
-    <div class="brand" aria-label="Labelly">
-      <a href="https://labelly-dzja.onrender.com/" style="text-decoration: none;">
-        <svg width="44" height="44" viewBox="0 0 44 44" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M7 12a6 6 0 0 1 6-6h18l8 10-8 10H13a6 6 0 0 1-6-6V12z" fill="#2f5bff" />
-          <circle cx="15.5" cy="18.5" r="3.1" fill="#fff" />
-        </svg>
-        <div class="word">Labelly</div>
+  <header class="site-header">
+    <h1 class="logo">
+      <a href="https://labelly-dzja.onrender.com/" aria-label="Labelly">
+        <img src="/labelly.svg" alt="Labelly" />
       </a>
-    </div>
+    </h1>
   </header>
 
   <main class="wrap">
