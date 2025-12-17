@@ -3,9 +3,6 @@ import express from "express";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-/* ==============================
-   Basic settings
-============================== */
 app.use(express.json({ limit: "200kb" }));
 app.use(express.static("public"));
 
@@ -13,9 +10,6 @@ const ALLOWED_PROTOCOLS = new Set(["http:", "https:"]);
 const FETCH_TIMEOUT_MS = 10000;
 const MAX_HTML_BYTES = 700_000;
 
-/* ==============================
-   Utils
-============================== */
 function safeParseUrl(raw) {
   try {
     const u = new URL(raw);
@@ -30,9 +24,6 @@ function hasAny(text, patterns) {
   return patterns.some((re) => re.test(text));
 }
 
-/* ==============================
-   HTML fetch
-============================== */
 async function fetchHtml(url) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
@@ -41,9 +32,7 @@ async function fetchHtml(url) {
     const res = await fetch(url, {
       redirect: "follow",
       signal: controller.signal,
-      headers: {
-        "User-Agent": "Labelly/1.0"
-      }
+      headers: { "User-Agent": "Labelly/1.0" }
     });
 
     if (!res.ok) return null;
@@ -62,23 +51,16 @@ async function fetchHtml(url) {
   }
 }
 
-/* ==============================
-   Analyze signals
-============================== */
 function analyze(html) {
   const jpUi = hasAny(html, [/日本語/i, /税込/i, /カート/i, /購入/i]);
   const jpy = hasAny(html, [/¥/i, /円/i, /JPY/i]);
   const tokusho = hasAny(html, [/特定商取引/i]);
   const overseas = hasAny(html, [/海外/i, /international/i]);
   const longDelivery = hasAny(html, [/週/i, /ヶ月/i, /か月/i]);
-
   return { jpUi, jpy, tokusho, overseas, longDelivery };
 }
 
-/* ==============================
-   Diagnose
-============================== */
-function diagnose(url, signals) {
+function diagnose(signals) {
   // 🟢
   if (signals.jpUi && signals.tokusho && !signals.overseas) {
     return {
@@ -89,10 +71,7 @@ function diagnose(url, signals) {
       delivery: "国内向け発送が前提の可能性が高い",
       eta: "1〜5営業日程度",
       return: "一般的な条件で対応される可能性が高い",
-      notes: [
-        "□ 配送日数の最終確認",
-        "□ セール時の在庫変動に注意"
-      ],
+      notes: ["□ 配送日数の最終確認", "□ セール時の在庫変動に注意"],
       good: ["日常利用", "急ぎの買い物"],
       caution: ["限定商品の在庫切れ"]
     };
@@ -105,16 +84,16 @@ function diagnose(url, signals) {
       labelText: "🟡 買えるが、事前確認がおすすめなEC",
       summary:
         "結論：急がない買い物ならOK。イベント・贈り物用途は配送と返品条件だけ先に確認。",
-      delivery: "海外発送を含む可能性あり",
-      eta: "約2〜6週間（商品により変動）",
-      return: "条件次第で手続きが煩雑になる可能性",
+      delivery: "国内向け表示はありますが、海外発送を含む可能性があります",
+      eta: "約2〜6週間（商品・在庫状況により変動）",
+      return: "条件次第で手続きが煩雑になる可能性があります",
       notes: [
         "□ 配送元（国内 / 海外）を確認",
-        "□ 到着までの日数を確認",
-        "□ 返品可否と送料負担を確認"
+        "□ 到着までの目安日数を確認",
+        "□ 返品可否と送料負担を事前確認"
       ],
-      good: ["時間に余裕がある買い物", "品揃え重視"],
-      caution: ["イベント用途", "返品前提の購入"]
+      good: ["到着まで多少待てる", "価格やデザインの選択肢を重視したい"],
+      caution: ["誕生日・イベントなど到着日が決まっている", "返品前提で購入を考えている"]
     };
   }
 
@@ -124,53 +103,43 @@ function diagnose(url, signals) {
     labelText: "🟠 購入前に条件整理が必要なEC",
     summary:
       "結論：購入前に配送元・納期・返品条件を整理してから判断するのがおすすめ。",
-    delivery: "公開情報だけでは判断しづらい",
-    eta: "不明（幅あり）",
-    return: "事前確認必須",
-    notes: [
-      "□ 配送情報ページを確認",
-      "□ 特定商取引法表記を確認",
-      "□ 返品条件を必ず確認"
-    ],
-    good: ["情報を確認できる人"],
-    caution: ["急ぎの用途", "高額商品の購入"]
+    delivery: "公式ページに情報はあるかもしれませんが、初見では把握しづらい構成の可能性があります",
+    eta: "日〜週（情報不足のため幅を想定）",
+    return: "ページ確認推奨（事前確認が安心）",
+    notes: ["□ 配送情報ページを確認", "□ 特定商取引法表記を確認", "□ 返品条件を必ず確認"],
+    good: ["購入前にページを確認できる", "急ぎではない買い物"],
+    caution: ["納期が固定の用途", "返品が前提の購入"]
   };
 }
 
-/* ==============================
-   API
-============================== */
+// API
 app.post("/api/diagnose", async (req, res) => {
   const rawUrl = (req.body?.url || "").trim();
-  const url = safeParseUrl(rawUrl);
-  if (!url) {
-    return res.status(400).json({ error: "invalid_url" });
-  }
+  const u = safeParseUrl(rawUrl);
+  if (!u) return res.status(400).json({ error: "invalid_url" });
 
-  const html = await fetchHtml(url.href);
+  const html = await fetchHtml(u.href);
+
   if (!html) {
     return res.json({
       color: "orange",
       labelText: "🟠 購入前に条件整理が必要なEC",
       summary:
         "結論：公開情報が取得できなかったため、購入前の自己確認が必須です。",
-      delivery: "取得不可",
-      eta: "不明",
-      return: "要確認",
-      notes: ["□ 公式ページを直接確認してください"],
-      good: [],
-      caution: ["即決購入"]
+      delivery: "サーバーから公開情報を取得できないため、前提が読み取りにくい可能性",
+      eta: "日〜週（情報不足のため幅を想定）",
+      return: "ページ確認推奨（事前確認が安心）",
+      notes: ["□ 公式ページ（配送/返品/特商法）を直接確認してください"],
+      good: ["時間に余裕がある購入"],
+      caution: ["即決購入", "イベント用途"]
     });
   }
 
   const signals = analyze(html);
-  const result = diagnose(url.href, signals);
+  const result = diagnose(signals);
   res.json(result);
 });
 
-/* ==============================
-   Start
-============================== */
 app.listen(PORT, () => {
   console.log(`Labelly running on http://localhost:${PORT}`);
 });
