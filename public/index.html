@@ -37,7 +37,7 @@
     }
 
     * {
-      box-sizing: border-box;
+      box-sizing: border-box
     }
 
     body {
@@ -47,7 +47,6 @@
       background: radial-gradient(1200px 600px at 50% -200px, rgba(47, 91, 255, .18), transparent 60%), var(--bg);
     }
 
-    /* Header */
     header {
       padding: 16px 18px;
       background: linear-gradient(180deg, var(--nav), var(--nav2));
@@ -67,7 +66,7 @@
     }
 
     .brand svg {
-      display: block;
+      display: block
     }
 
     .brand .word {
@@ -76,11 +75,10 @@
       font-size: 28px;
       color: #fff;
       transform: translateY(2px);
-      /* yのぶんだけ少し下へ */
+      /* yの分だけ微調整 */
       line-height: 1;
     }
 
-    /* Layout */
     .wrap {
       max-width: 980px;
       margin: 28px auto 60px;
@@ -189,11 +187,19 @@
     .titleRow {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .titleLeft {
+      display: flex;
+      align-items: center;
       gap: 10px;
       font-weight: 900;
       font-size: 26px;
       letter-spacing: .2px;
-      flex-wrap: wrap;
+      min-width: 240px;
     }
 
     .dot {
@@ -205,138 +211,136 @@
       flex: 0 0 auto;
     }
 
-    .subRow {
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 14px;
-      align-items: center;
-    }
-
-    /* Score ring */
-    .scoreCard {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: #fff;
-      box-shadow: var(--shadow2);
-      padding: 14px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ring {
-      width: 120px;
-      height: 120px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ring svg {
-      width: 120px;
-      height: 120px;
-    }
-
-    .ring .center {
-      position: absolute;
-      text-align: center;
-      line-height: 1.1;
-    }
-
-    .ring .center .num {
-      font-size: 28px;
-      font-weight: 950;
-      letter-spacing: .2px;
-    }
-
-    .ring .center .lab {
-      margin-top: 4px;
-      font-size: 12px;
-      font-weight: 900;
-      color: var(--muted);
-    }
-
-    /* Platform + domain chips */
-    .chips {
+    .badges {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
-    }
-
-    .chip {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      color: #334155;
-      border-radius: 999px;
-      padding: 9px 12px;
-      font-size: 13px;
-      font-weight: 800;
+      justify-content: flex-end;
+      margin-left: auto;
     }
 
     .badge {
-      border-radius: 999px;
-      padding: 9px 12px;
-      font-size: 13px;
-      font-weight: 950;
-      border: 1px solid rgba(15, 23, 42, .08);
-      background: #fff;
       display: inline-flex;
       gap: 8px;
       align-items: center;
-      box-shadow: 0 10px 24px rgba(2, 6, 23, .06);
+      border-radius: 999px;
+      padding: 9px 12px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      font-size: 13px;
+      font-weight: 900;
+      color: #334155;
+      white-space: nowrap;
     }
 
     .badge .pill {
       width: 10px;
       height: 10px;
       border-radius: 999px;
-      display: inline-block;
       background: #94a3b8;
     }
 
-    .badge.amazon .pill {
-      background: #111827;
+    .badgePlatform {
+      background: #0b1020;
+      border-color: rgba(255, 255, 255, .1);
+      color: #fff;
     }
 
-    .badge.rakuten .pill {
-      background: #dc2626;
+    .badgePlatform .pill {
+      background: #fff;
+      opacity: .9;
     }
 
-    .badge.base .pill {
-      background: #111827;
+    .scoreWrap {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 14px;
+      align-items: center;
     }
 
-    .badge.shopify .pill {
-      background: #22c55e;
+    .meter {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 12px;
+      background: #fff;
+      box-shadow: var(--shadow2);
     }
 
-    .badge.stores .pill {
-      background: #2563eb;
+    .meterTop {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
-    .badge.unknown .pill {
-      background: #94a3b8;
+    .meterTop .k {
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .2px;
+    }
+
+    .meterTop .v {
+      font-weight: 1000;
+      font-size: 22px;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      background: #eaf0ff;
+      overflow: hidden;
+      border: 1px solid #dbe7ff;
+    }
+
+    .bar>div {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: var(--blue);
+      transition: width .35s ease;
+    }
+
+    .scoreHint {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 14px;
+      background: #fff;
+      box-shadow: var(--shadow2);
+    }
+
+    .scoreHint .t {
+      font-weight: 1000;
+      font-size: 16px;
+      margin-bottom: 6px;
+      letter-spacing: .2px;
+    }
+
+    .scoreHint .d {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 13px;
     }
 
     .oneLine {
-      margin-top: 16px;
+      margin-top: 14px;
       padding: 14px 14px;
       border-radius: 14px;
       background: #f1f5f9;
       color: #0f172a;
-      font-weight: 800;
+      font-weight: 900;
       line-height: 1.6;
-      display: none;
+      display: flex;
       gap: 10px;
       align-items: flex-start;
     }
 
     .oneLine .bulb {
       font-size: 18px;
-      line-height: 1.2;
+      line-height: 1.2
     }
 
     .grid3 {
@@ -357,14 +361,14 @@
 
     .mini .k {
       color: var(--muted);
-      font-weight: 800;
+      font-weight: 900;
       font-size: 14px;
       margin-bottom: 8px;
     }
 
     .mini .v {
       font-size: 18px;
-      font-weight: 900;
+      font-weight: 1000;
       line-height: 1.45;
     }
 
@@ -388,7 +392,7 @@
     .box h3 {
       margin: 0 0 10px;
       font-size: 18px;
-      font-weight: 900;
+      font-weight: 1000;
     }
 
     ul {
@@ -399,7 +403,7 @@
     }
 
     li {
-      margin: 6px 0;
+      margin: 6px 0
     }
 
     .muted {
@@ -414,6 +418,10 @@
     }
 
     /* Evidence toggle */
+    .evidenceWrap {
+      padding: 0 22px 22px;
+    }
+
     .toggle {
       display: inline-flex;
       align-items: center;
@@ -421,7 +429,7 @@
       cursor: pointer;
       user-select: none;
       color: var(--blue);
-      font-weight: 950;
+      font-weight: 1000;
       margin-top: 14px;
     }
 
@@ -433,10 +441,6 @@
 
     .toggle.open .tri {
       transform: rotate(90deg);
-    }
-
-    .evidenceWrap {
-      padding: 0 22px 22px;
     }
 
     .evidence {
@@ -469,23 +473,8 @@
     .evBox h4 {
       margin: 0 0 10px;
       font-size: 14px;
-      font-weight: 950;
+      font-weight: 1000;
       color: #334155;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .count {
-      font-size: 11px;
-      color: #334155;
-      background: #eef2ff;
-      border: 1px solid #dbeafe;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-weight: 950;
-      flex: 0 0 auto;
     }
 
     .evList {
@@ -510,47 +499,16 @@
     }
 
     .urlList a {
-      font-weight: 800;
-    }
-
-    .tools {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    .toolBtn {
-      border: 1px solid #dbe7ff;
-      background: #eef4ff;
-      color: #1d4ed8;
-      font-weight: 950;
-      border-radius: 12px;
-      padding: 10px 12px;
-      cursor: pointer;
-      box-shadow: none;
-      font-size: 13px;
-    }
-
-    .toolBtn:hover {
-      filter: none;
-      background: #e7efff;
-    }
-
-    .toolBtn:active {
-      transform: translateY(1px);
-    }
-
-    a {
       color: var(--blue);
       text-decoration: none;
+      word-break: break-all;
     }
 
-    a:hover {
+    .urlList a:hover {
       text-decoration: underline;
     }
 
-    /* Optional block (serverが返さない時は空) */
+    /* optional explanation block */
     #explanation:empty {
       display: none !important;
     }
@@ -572,15 +530,15 @@
         width: 100%;
       }
 
-      .titleRow {
+      .titleLeft {
         font-size: 22px;
       }
 
-      .subRow {
+      .scoreWrap {
         grid-template-columns: 1fr;
       }
 
-      .scoreCard {
+      .badges {
         justify-content: flex-start;
       }
     }
@@ -590,7 +548,6 @@
 <body>
   <header>
     <div class="brand" aria-label="Labelly">
-      <!-- Tag icon -->
       <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M7 12a6 6 0 0 1 6-6h18l8 10-8 10H13a6 6 0 0 1-6-6V12z" fill="#2f5bff" />
         <circle cx="15.5" cy="18.5" r="3.1" fill="#fff" />
@@ -612,39 +569,40 @@
       <div class="note">※この診断は公開情報をもとにした推定です。実際の条件は販売者の案内をご確認ください。</div>
     </section>
 
-    <!-- optional explanation block -->
     <div class="explain" id="explanation"></div>
 
     <section id="result" class="result" style="display:none;">
       <div class="resultHead">
         <div class="titleRow">
-          <span id="dot" class="dot"></span>
-          <span id="labelText">—</span>
+          <div class="titleLeft">
+            <span id="dot" class="dot"></span>
+            <span id="labelText">—</span>
+          </div>
+
+          <div class="badges">
+            <span class="badge" id="badgeDomain"><span class="pill"></span><span id="domainText">ドメイン：-</span></span>
+            <span class="badge badgePlatform" id="badgePlatform"><span class="pill"></span><span id="platformText">推定：-</span></span>
+          </div>
         </div>
 
-        <div class="subRow">
-          <!-- score -->
-          <div class="scoreCard">
-            <div class="ring" aria-label="信頼スコア">
-              <svg viewBox="0 0 120 120" role="img" aria-hidden="true">
-                <circle cx="60" cy="60" r="48" stroke="#e8eef8" stroke-width="12" fill="none"></circle>
-                <circle id="ringArc" cx="60" cy="60" r="48" stroke="#2f5bff" stroke-width="12" fill="none" stroke-linecap="round" transform="rotate(-90 60 60)" stroke-dasharray="302" stroke-dashoffset="302"></circle>
-              </svg>
-              <div class="center">
-                <div class="num" id="scoreNum">-</div>
-                <div class="lab">信頼スコア</div>
-              </div>
+        <div class="scoreWrap">
+          <div class="meter">
+            <div class="meterTop">
+              <div class="k">信頼スコア</div>
+              <div class="v" id="scoreText">-</div>
+            </div>
+            <div class="bar" aria-label="score bar">
+              <div id="scoreBar"></div>
             </div>
           </div>
 
-          <!-- chips -->
-          <div class="chips">
-            <span class="chip" id="chipDomain">ドメイン：-</span>
-            <span class="badge unknown" id="platformBadge"><span class="pill"></span><span id="chipPlatform">推定：-</span></span>
+          <div class="scoreHint">
+            <div class="t" id="scoreTitle">—</div>
+            <div class="d" id="scoreDesc">—</div>
           </div>
         </div>
 
-        <div id="oneLine" class="oneLine">
+        <div id="oneLine" class="oneLine" style="display:none;">
           <span class="bulb">💡</span>
           <div id="oneLineText"></div>
         </div>
@@ -690,23 +648,20 @@
         <div id="evidence" class="evidence">
           <div class="evGrid">
             <div class="evBox">
-              <h4>UI / 基本情報 <span class="count" id="cntUi">0</span></h4>
+              <h4>UI / 基本情報</h4>
               <ul class="evList" id="evUi"></ul>
             </div>
             <div class="evBox">
-              <h4>配送の根拠 <span class="count" id="cntShip">0</span></h4>
+              <h4>配送の根拠</h4>
               <ul class="evList" id="evShip"></ul>
             </div>
             <div class="evBox">
-              <h4>返品・表記の根拠 <span class="count" id="cntRet">0</span></h4>
+              <h4>返品・表記の根拠</h4>
               <ul class="evList" id="evRet"></ul>
             </div>
             <div class="evBox">
-              <h4>確認したURL <span class="count" id="cntUrls">0</span></h4>
+              <h4>確認したURL</h4>
               <div class="evMono urlList" id="evUrls"></div>
-              <div class="tools">
-                <button class="toolBtn" id="copyUrlsBtn" type="button">URLをコピー</button>
-              </div>
             </div>
           </div>
 
@@ -734,12 +689,15 @@
 
     const dot = $("dot");
     const labelText = $("labelText");
-    const chipDomain = $("chipDomain");
-    const chipPlatform = $("chipPlatform");
-    const platformBadge = $("platformBadge");
 
-    const scoreNum = $("scoreNum");
-    const ringArc = $("ringArc");
+    const domainText = $("domainText");
+    const platformText = $("platformText");
+    const badgePlatform = $("badgePlatform");
+
+    const scoreText = $("scoreText");
+    const scoreBar = $("scoreBar");
+    const scoreTitle = $("scoreTitle");
+    const scoreDesc = $("scoreDesc");
 
     const oneLine = $("oneLine");
     const oneLineText = $("oneLineText");
@@ -761,21 +719,6 @@
     const evUrls = $("evUrls");
     const evSnips = $("evSnips");
 
-    const cntUi = $("cntUi");
-    const cntShip = $("cntShip");
-    const cntRet = $("cntRet");
-    const cntUrls = $("cntUrls");
-    const copyUrlsBtn = $("copyUrlsBtn");
-
-    const RING_LEN = 302; // ≒ 2πr (r=48)
-
-    function escapeHtml(s) {
-      return String(s)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;");
-    }
-
     function setDotColor(color) {
       const map = {
         green: "var(--green)",
@@ -786,24 +729,26 @@
       dot.style.background = map[color] || "var(--muted)";
     }
 
-    function scoreColor(score) {
-      const n = Number(score);
-      if (!Number.isFinite(n)) return "var(--blue)";
-      if (n >= 70) return "var(--green)";
-      if (n >= 40) return "var(--yellow)";
-      return "var(--orange)";
+    function platformJa(p) {
+      const m = {
+        amazon: "Amazon",
+        rakuten: "楽天",
+        base: "BASE",
+        shopify: "Shopify",
+        stores: "STORES",
+        unknown: "不明",
+      };
+      return m[p] || p || "不明";
     }
 
-    function setScoreRing(score) {
-      const n = Math.max(0, Math.min(100, Number(score)));
-      const offset = RING_LEN - (RING_LEN * (Number.isFinite(n) ? n : 0) / 100);
-      ringArc.style.strokeDasharray = String(RING_LEN);
-      ringArc.style.strokeDashoffset = String(offset);
-      ringArc.style.stroke = scoreColor(n);
-      scoreNum.textContent = Number.isFinite(n) ? String(n) : "-";
+    function platformBadgeStyle(p) {
+      // ちょい「プロダクト感」：プラットフォームで雰囲気変える（色は固定しない方針ならここは文字だけでもOK）
+      // 今回は背景を共通（黒）にして、表示テキストで差を出す
+      return;
     }
 
     function clearList(el) { el.innerHTML = ""; }
+
     function addItems(el, items) {
       clearList(el);
       (items || []).forEach(t => {
@@ -834,77 +779,85 @@
       }
     }
 
-    function platformJa(p) {
-      const m = {
-        amazon: "Amazon",
-        rakuten: "楽天",
-        base: "BASE",
-        shopify: "Shopify",
-        stores: "STORES",
-        unknown: "不明",
-      };
-      return m[p] || p || "不明";
+    function scoreCopy(score) {
+      const ensureNum = (v) => (typeof v === "number" && isFinite(v)) ? v : null;
+      const s = ensureNum(score);
+
+      if (s === null) {
+        return { title: "スコア未算出", desc: "取得できた情報が少ない可能性があります。根拠ページを確認してください。" };
+      }
+      if (s >= 80) return { title: "高い（かなり安心）", desc: "特商法・連絡先・返品などの情報が揃っている可能性が高いです。" };
+      if (s >= 60) return { title: "中〜高（概ね安心）", desc: "主要情報は見えるが、配送/返品の条件を最後に確認すると安心です。" };
+      if (s >= 40) return { title: "中（要確認）", desc: "情報はあるが揃いきっていない可能性。配送・返品・特商法ページを先に確認推奨。" };
+      if (s >= 20) return { title: "低め（慎重に）", desc: "公開情報が限定的な可能性があります。購入前に条件の確認が必須です。" };
+      return { title: "かなり低い（要注意）", desc: "取得できた根拠が少ない/取得不可の可能性。購入は慎重に判断してください。" };
     }
 
-    function platformClass(p) {
-      const allow = new Set(["amazon", "rakuten", "base", "shopify", "stores", "unknown"]);
-      return allow.has(p) ? p : "unknown";
-    }
+    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 
     function renderSnippets(snips) {
       const ui = (snips && snips.ui) ? snips.ui : [];
       const ship = (snips && snips.ship) ? snips.ship : [];
-      const retS = (snips && snips.ret) ? snips.ret : [];
+      const ret = (snips && snips.ret) ? snips.ret : [];
       const contact = (snips && snips.contact) ? snips.contact : [];
 
       const lines = [];
       if (ui.length) lines.push("UI:\n- " + ui.join("\n- "));
       if (ship.length) lines.push("配送:\n- " + ship.join("\n- "));
-      if (retS.length) lines.push("返品:\n- " + retS.join("\n- "));
+      if (ret.length) lines.push("返品:\n- " + ret.join("\n- "));
       if (contact.length) lines.push("連絡先っぽい表記:\n- " + contact.join("\n- "));
       if (!lines.length) lines.push("（抜粋なし）");
 
-      evSnips.innerHTML = escapeHtml(lines.join("\n\n"));
+      evSnips.textContent = lines.join("\n\n");
     }
 
     function renderUrls(urls) {
+      evUrls.innerHTML = "";
       if (!urls || !urls.length) {
         evUrls.textContent = "（なし）";
-        cntUrls.textContent = "0";
         return;
       }
-      cntUrls.textContent = String(urls.length);
-      evUrls.innerHTML = urls.map(u => `- <a href="${u}" target="_blank" rel="noopener noreferrer">${escapeHtml(u)}</a>`).join("\n");
-    }
-
-    function setCounts(ev) {
-      const ui = (ev && ev.ui) ? ev.ui.length : 0;
-      const ship = (ev && ev.ship) ? ev.ship.length : 0;
-      const retA = (ev && ev.ret) ? ev.ret.length : 0;
-      cntUi.textContent = String(ui);
-      cntShip.textContent = String(ship);
-      cntRet.textContent = String(retA);
+      const frag = document.createDocumentFragment();
+      urls.forEach((u) => {
+        const line = document.createElement("div");
+        line.textContent = "- ";
+        const a = document.createElement("a");
+        a.href = u;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = u;
+        line.appendChild(a);
+        frag.appendChild(line);
+      });
+      evUrls.appendChild(frag);
     }
 
     function render(data) {
       result.style.display = "block";
 
+      // header label
       setDotColor(data.color);
       labelText.textContent = data.labelText || "—";
 
-      // domain
+      // domain/platform
       const domain = (() => {
         try { return new URL(data.url).hostname; } catch { return "-"; }
       })();
-      chipDomain.textContent = `ドメイン：${domain}`;
+      domainText.textContent = `ドメイン：${domain}`;
 
-      // platform badge
-      const p = data.platform || "unknown";
-      chipPlatform.textContent = `推定：${platformJa(p)}`;
-      platformBadge.className = `badge ${platformClass(p)}`;
+      const p = platformJa(data.platform);
+      platformText.textContent = `推定：${p}`;
+      platformBadgeStyle(p);
 
-      // score ring
-      setScoreRing(data.score ?? 0);
+      // score
+      const score = (typeof data.score === "number" && isFinite(data.score)) ? data.score : null;
+      scoreText.textContent = (score === null) ? "-" : `${score}`;
+      const pct = (score === null) ? 0 : clamp(score, 0, 100);
+      scoreBar.style.width = pct + "%";
+
+      const sc = scoreCopy(score);
+      scoreTitle.textContent = sc.title;
+      scoreDesc.textContent = sc.desc;
 
       // one-line summary
       if (data.oneLine) {
@@ -915,6 +868,7 @@
         oneLineText.textContent = "";
       }
 
+      // main fields
       delivery.textContent = data.delivery || "-";
       eta.textContent = data.eta || "-";
       ret.textContent = data.return || "-";
@@ -925,12 +879,16 @@
 
       // evidence
       const ev = data.evidence || {};
-      setCounts(ev);
       addEvidenceList(evUi, ev.ui);
       addEvidenceList(evShip, ev.ship);
       addEvidenceList(evRet, ev.ret);
+
       renderUrls(ev.urlsChecked || []);
-      renderSnippets((ev.snippets || {}));
+      renderSnippets(ev.snippets || {});
+
+      // close evidence by default
+      evidence.classList.remove("open");
+      toggleEvidence.classList.remove("open");
     }
 
     async function diagnose() {
@@ -950,10 +908,6 @@
         if (!res.ok) throw new Error("API error");
         const data = await res.json();
         render(data);
-
-        // evidence閉じる
-        evidence.classList.remove("open");
-        toggleEvidence.classList.remove("open");
       } catch (e) {
         alert("診断に失敗しました。URLを確認してください。");
       } finally {
@@ -968,17 +922,6 @@
     toggleEvidence.addEventListener("click", () => {
       const open = evidence.classList.toggle("open");
       toggleEvidence.classList.toggle("open", open);
-    });
-
-    copyUrlsBtn.addEventListener("click", async () => {
-      const raw = evUrls.innerText || "";
-      try {
-        await navigator.clipboard.writeText(raw.replace(/\n/g, "\n"));
-        copyUrlsBtn.textContent = "コピーしました";
-        setTimeout(() => (copyUrlsBtn.textContent = "URLをコピー"), 1200);
-      } catch {
-        alert("コピーできませんでした（ブラウザの権限をご確認ください）");
-      }
     });
   </script>
 </body>
