@@ -2,303 +2,98 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>Labelly｜通販サイト診断</title>
+  <title>Labelly｜通販サイトの条件を事前に見える化</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="icon" sizes="32x32" href="favicon.svg">
-  <link rel="icon" sizes="16x16" href="favicon.svg">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Labelly｜通販サイト診断">
-  <meta property="og:description" content="配送・返品・流通の前提条件を、公開情報から可視化します。">
-  <meta property="og:image" content="https://あなたのドメイン/og.svg">
-  <meta property="og:url" content="https://あなたのドメイン/">
-  <meta name="twitter:card" content="summary_large_image">
-
   <style>
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-      background: #f7f7f7;
-      color: #222;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f9fafb;
       margin: 0;
+      padding: 0;
     }
 
     header {
-      background: #111;
-      color: #fff;
-      padding: 18px 16px;
-      text-align: center;
+      padding: 16px;
+      border-bottom: 1px solid #e5e7eb;
+      font-weight: 700;
     }
 
     main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 22px 14px 90px;
+      max-width: 640px;
+      margin: 40px auto;
+      padding: 0 16px;
     }
 
-    h1 {
-      font-size: 22px;
-      margin: 0;
-    }
-
-    p.lead {
-      margin: 12px 0 18px;
-      color: #555;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    form {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    input[type="url"] {
-      flex: 1;
-      padding: 10px 12px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
     }
 
     button {
-      padding: 10px 16px;
-      font-size: 14px;
-      border-radius: 8px;
-      border: none;
-      background: #2563eb;
-      color: #fff;
+      margin-top: 12px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
       cursor: pointer;
     }
 
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
+    .result {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
     }
 
-    .error {
-      color: #b91c1c;
-      font-size: 13px;
-      margin-top: 8px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 14px;
-      padding: 18px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    }
-
-    .label {
-      font-size: 20px;
-      font-weight: 800;
-      margin: 0 0 6px;
-    }
-
-    .sub {
-      margin: 0 0 10px;
-      color: #555;
-      font-size: 13px;
+    .summary-line {
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #f3f4f6;
+      margin-bottom: 12px;
     }
 
     .green {
-      color: #15803d;
+      border-left: 6px solid #16a34a;
     }
 
     .yellow {
-      color: #a16207;
+      border-left: 6px solid #eab308;
     }
 
     .orange {
-      color: #c2410c;
-    }
-
-    .meta {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 10px 0 12px;
-    }
-
-    .pill {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 12px;
-      color: #334155;
-    }
-
-    .row {
-      margin: 8px 0;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .row strong {
-      display: inline-block;
-      min-width: 54px;
-    }
-
-    .explain {
-      margin: 12px 0 6px;
-      padding: 12px;
-      background: #fafafa;
-      border: 1px solid #eee;
-      border-radius: 12px;
-      font-size: 13px;
-      color: #333;
-      line-height: 1.6;
+      border-left: 6px solid #f97316;
     }
 
     ul {
       padding-left: 18px;
-      margin: 6px 0 10px;
-    }
-
-    li {
-      font-size: 13px;
-      margin: 4px 0;
-    }
-
-    details {
-      margin-top: 12px;
-    }
-
-    summary {
-      cursor: pointer;
-      font-size: 13px;
-      color: #2563eb;
-    }
-
-    a {
-      color: #2563eb;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #fafafa;
-      border-top: 1px solid #ddd;
-      padding: 8px 10px;
-      font-size: 12px;
-      color: #666;
-      text-align: center;
     }
   </style>
 </head>
-<body>
-  <header style="padding:16px; background:#020617; border-bottom:1px solid #020617;">
-    <svg width="137" height="44" viewBox="0 0 137 44" xmlns="http://www.w3.org/2000/svg">
-      <!-- Tag -->
-      <path d="M6 8h30l10 14-10 14H6a6 6 0 0 1-6-6V14a6 6 0 0 1 6-6z" fill="#2563EB" />
-      <circle cx="14" cy="22" r="3" fill="#fff" />
 
-      <!-- Text (baseline adjusted) -->
-      <text x="60" y="30" font-size="22" font-weight="700" fill="#fff" font-family="Inter, system-ui, sans-serif">
-        Labelly
-      </text>
-    </svg>
+<body>
+  <header>
+    Labelly
   </header>
 
-
   <main>
-    <p class="lead">
-      通販サイトを「良い・悪い」で断定しません。<br>
-      <strong>配送・返品などの前提条件の“傾向”</strong>を、公開情報から推定して表示します。
+    <p>
+      この通販サイトで「あとから困らないか？」<br>
+      配送・返品・表記など、見落としやすい条件を事前に見える化します。
     </p>
 
-    <form id="diagnoseForm">
-      <input type="url" id="urlInput" placeholder="https://example.com" required />
-      <button type="submit" id="submitBtn">診断</button>
-    </form>
+    <input id="urlInput" placeholder="https://example.com" />
+    <button onclick="diagnose()">診断する</button>
 
-    <div id="error" class="error" style="display:none;"></div>
-
-    <div id="result" class="card" style="display:none;">
-      <div id="label" class="label"></div>
-      <p id="subText" class="sub"></p>
-
-      <div class="meta">
-        <div class="pill" id="scorePill">信頼スコア：-</div>
-        <div class="pill" id="domainPill">ドメイン：-</div>
-      </div>
-
-      <div class="row"><strong>配送：</strong><span id="delivery"></span></div>
-      <div class="row"><strong>目安：</strong><span id="eta"></span></div>
-      <div class="row"><strong>返品：</strong><span id="return"></span></div>
-
-      <div class="explain" id="explanation"></div>
-
-      <div class="row">
-        <strong>向いている</strong>
-        <ul id="good"></ul>
-      </div>
-
-      <div class="row">
-        <strong>注意</strong>
-        <ul id="caution"></ul>
-      </div>
-
-      <details>
-        <summary>判定の根拠を見る</summary>
-
-        <div class="row">
-          <strong>根拠ページURL</strong>
-          <ul id="pages"></ul>
-        </div>
-
-        <div class="row">
-          <strong>UI・表示</strong>
-          <ul id="evUi"></ul>
-        </div>
-
-        <div class="row">
-          <strong>配送・流通</strong>
-          <ul id="evShip"></ul>
-        </div>
-
-        <div class="row">
-          <strong>返品・運営</strong>
-          <ul id="evRet"></ul>
-        </div>
-
-        <div class="row">
-          <strong>検出された文言</strong>
-          <ul id="snippets"></ul>
-        </div>
-      </details>
-    </div>
+    <div id="result"></div>
   </main>
 
-  <footer>
-    ※ 本結果は公開情報からの推定であり、断定・評価を行うものではありません
-  </footer>
-
   <script>
-    const form = document.getElementById("diagnoseForm");
-    const input = document.getElementById("urlInput");
-    const btn = document.getElementById("submitBtn");
-    const errorEl = document.getElementById("error");
-    const resultEl = document.getElementById("result");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      errorEl.style.display = "none";
-      resultEl.style.display = "none";
-
-      const url = input.value.trim();
-      if (!url) return;
-
-      btn.disabled = true;
-      btn.textContent = "診断中…";
+    async function diagnose() {
+      const url = document.getElementById("urlInput").value;
+      const resultEl = document.getElementById("result");
+      resultEl.innerHTML = "診断中…";
 
       try {
         const res = await fetch("/api/diagnose", {
@@ -306,95 +101,30 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url })
         });
-
-        if (!res.ok) throw new Error("API error");
         const data = await res.json();
-        renderResult(data);
+
+        resultEl.innerHTML = `
+      <div class="result ${data.color}">
+        <div class="summary-line">💡 ${data.summary}</div>
+        <h3>${data.labelText}</h3>
+        <p><strong>配送：</strong>${data.delivery}</p>
+        <p><strong>到着目安：</strong>${data.eta}</p>
+        <p><strong>返品：</strong>${data.return}</p>
+
+        <p><strong>チェックポイント</strong></p>
+        <ul>${(data.notes || []).map(n => `<li>${n}</li>`).join("")}</ul>
+
+        <p><strong>向いている人</strong></p>
+        <ul>${(data.good || []).map(n => `<li>${n}</li>`).join("")}</ul>
+
+        <p><strong>注意したい人</strong></p>
+        <ul>${(data.caution || []).map(n => `<li>${n}</li>`).join("")}</ul>
+      </div>
+    `;
       } catch {
-        errorEl.textContent = "診断に失敗しました。URLを確認してください。";
-        errorEl.style.display = "block";
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "診断";
+        resultEl.innerHTML = "診断に失敗しました。";
       }
-    });
-
-    function renderResult(d) {
-      resultEl.style.display = "block";
-
-      const label = document.getElementById("label");
-      label.textContent = d.labelText || "";
-      label.className = "label " + (d.color || "");
-
-      document.getElementById("subText").textContent = d.subText || "";
-
-      const host = (() => {
-        try { return new URL(d.url).hostname; } catch { return "-"; }
-      })();
-      document.getElementById("domainPill").textContent = "ドメイン：" + host;
-
-      const score = (typeof d.score === "number") ? d.score : "-";
-      document.getElementById("scorePill").textContent = "信頼スコア：" + score + " / 100";
-
-      document.getElementById("delivery").textContent = d.delivery || "";
-      document.getElementById("eta").textContent = d.eta || "";
-      document.getElementById("return").textContent = d.return || "";
-      document.getElementById("explanation").textContent = d.explanation || "";
-
-      fillTextList("good", d.good);
-      fillTextList("caution", d.caution);
-
-      fillTextList("evUi", d.evidence?.ui || []);
-      fillTextList("evShip", d.evidence?.ship || []);
-      fillTextList("evRet", d.evidence?.ret || []);
-
-      const snips = [
-        ...(d.evidence?.snippets?.ui || []),
-        ...(d.evidence?.snippets?.ship || []),
-        ...(d.evidence?.snippets?.ret || [])
-      ];
-      fillTextList("snippets", snips);
-
-      fillPageList("pages", d.evidence?.pages || []);
-    }
-
-    function fillTextList(id, items) {
-      const ul = document.getElementById(id);
-      ul.innerHTML = "";
-      if (!items || items.length === 0) {
-        const li = document.createElement("li");
-        li.textContent = "（該当なし）";
-        ul.appendChild(li);
-        return;
-      }
-      items.forEach((t) => {
-        const li = document.createElement("li");
-        li.textContent = t;
-        ul.appendChild(li);
-      });
-    }
-
-    function fillPageList(id, pages) {
-      const ul = document.getElementById(id);
-      ul.innerHTML = "";
-      if (!pages || pages.length === 0) {
-        const li = document.createElement("li");
-        li.textContent = "（関連ページは検出できませんでした）";
-        ul.appendChild(li);
-        return;
-      }
-      pages.forEach((p) => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = p.url;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer nofollow";
-        a.textContent = `${p.type || "page"}：${p.url}`;
-        li.appendChild(a);
-        ul.appendChild(li);
-      });
     }
   </script>
-
 </body>
 </html>
