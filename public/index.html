@@ -47,41 +47,21 @@
 
     /* Header */
     header {
-      padding: 16px 18px;
       background: linear-gradient(180deg, var(--nav), var(--nav2));
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      box-shadow: 0 14px 50px rgba(0, 0, 0, .25);
-
-      /* 追加：中身の縦中央（保険） */
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      /* 背景を戻す */
     }
 
-    /* ロゴの横並びを強制（2段落ち防止） */
     .brand {
-      max-width: 980px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      /* これが重要：折り返し禁止 */
       align-items: center;
-      /* これが重要：縦ズレ防止 */
-      justify-content: center;
-      gap: 14px;
+      /* 念のため明示 */
     }
 
     .brand svg {
-      display: inline;
-      /* baselineズレ対策 */
-      width: 44px;
-      height: 44px;
-      /* これが重要：比率崩れ/丸ズレ対策 */
-      flex: 0 0 44px;
+      display: block;
+      align-self: center;
+      /* ← 白丸ズレの決定打 */
     }
+
 
     .brand .word {
       font-weight: 900;
