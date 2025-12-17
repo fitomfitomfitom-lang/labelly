@@ -8,132 +8,93 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
   <style>
-    :root {
-      --bg: #f3f6fb;
-      --panel: #fff;
-      --text: #0f172a;
-      --muted: #64748b;
-      --border: #e6edf6;
-      --blue: #2f5bff;
-      --green: #16a34a;
-      --yellow: #f59e0b;
-      --orange: #f97316;
-      --radius: 22px;
-    }
-
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, "Noto Sans JP", sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      background: #f3f6fb;
+      color: #0f172a;
     }
 
     header {
-      background: #0a0f1f;
       padding: 16px;
-      text-align: center;
+      background: #0a0f1f;
       color: #fff;
-      font-size: 26px;
+      text-align: center;
       font-weight: 800;
+      font-size: 26px;
     }
 
     main {
-      max-width: 980px;
-      margin: 30px auto;
+      max-width: 900px;
+      margin: 24px auto;
       padding: 0 16px;
     }
 
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 20px;
-    }
-
-    .inputRow {
-      display: flex;
-      gap: 12px;
-    }
-
     input {
-      flex: 1;
+      width: 100%;
       padding: 14px;
       font-size: 16px;
-      border-radius: 12px;
-      border: 2px solid #dbe7ff;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
     }
 
     button {
-      background: var(--blue);
-      color: #fff;
-      border: 0;
-      border-radius: 12px;
-      padding: 14px 20px;
+      margin-top: 12px;
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
       font-weight: 800;
+      border-radius: 10px;
+      border: none;
+      background: #2f5bff;
+      color: #fff;
       cursor: pointer;
     }
 
-    .label {
-      font-size: 26px;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .result {
+      margin-top: 24px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      display: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
     }
 
     .dot {
-      width: 14px;
-      height: 14px;
+      display: inline-block;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
+      margin-right: 8px;
     }
 
-    .orange {
-      background: var(--orange);
+    .dot.green {
+      background: #16a34a;
     }
 
-    .green {
-      background: var(--green);
+    .dot.yellow {
+      background: #f59e0b;
     }
 
-    .yellow {
-      background: var(--yellow);
+    .dot.orange {
+      background: #f97316;
     }
 
-    /* affiliate block */
     .affiliate {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 16px;
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      display: none;
     }
 
-    .affiliate h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
-    }
-
-    .affBtns {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .affBtns a {
-      padding: 12px 16px;
-      border-radius: 10px;
+    .affiliate a {
+      display: inline-block;
+      margin-right: 12px;
+      font-weight: 700;
+      color: #2563eb;
       text-decoration: none;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .amazon {
-      background: #ff9900;
-    }
-
-    .rakuten {
-      background: #bf0000;
     }
   </style>
 </head>
@@ -142,37 +103,32 @@
   <header>Labelly</header>
 
   <main>
-    <div class="card">
-      <p>この通販サイトで「あとから困らないか？」</p>
-      <div class="inputRow">
-        <input id="urlInput" placeholder="https://example.com" />
-        <button id="goBtn">診断</button>
-      </div>
-    </div>
+    <input id="urlInput" type="url" placeholder="https://example.com" />
+    <button id="goBtn">診断する</button>
 
-    <div id="result" class="card" style="display:none;">
-      <div class="label">
+    <div id="result" class="result">
+      <div>
         <span id="dot" class="dot"></span>
-        <span id="labelText"></span>
+        <strong id="labelText"></strong>
       </div>
-      <p id="oneLine"></p>
 
-      <!-- affiliate -->
-      <div id="affiliate" class="affiliate" style="display:none;">
-        <h3>⚠ 正規モールでの購入も検討できます</h3>
-        <p>条件が不明瞭な場合は、信頼性の高い正規モールが安心です。</p>
-        <div class="affBtns">
-          <a id="amazonLink" class="amazon" target="_blank">Amazonで探す</a>
-          <a id="rakutenLink" class="rakuten" target="_blank">楽天で探す</a>
-        </div>
+      <p id="oneLine" style="margin-top:10px;"></p>
+
+      <!-- アフィリエイト案内 -->
+      <div id="affiliate" class="affiliate">
+        <p style="margin:0 0 8px;">
+          ※正規モールで同等商品を探すのも一つの選択です
+        </p>
+        <a id="amazonLink" target="_blank" rel="noopener">Amazonで探す</a>
+        <a id="rakutenLink" target="_blank" rel="noopener">楽天で探す</a>
       </div>
     </div>
   </main>
 
   <script>
-    const $ = id => document.getElementById(id);
+    const $ = (id) => document.getElementById(id);
 
-    $("goBtn").onclick = async () => {
+    async function diagnose() {
       const url = $("urlInput").value.trim();
       if (!url) return alert("URLを入力してください");
 
@@ -181,6 +137,7 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url })
       });
+
       const data = await res.json();
 
       $("result").style.display = "block";
@@ -190,20 +147,32 @@
       const dot = $("dot");
       dot.className = "dot " + data.color;
 
-      // affiliate logic
-      if (data.color === "orange") {
-        const domain = new URL(data.url).hostname;
-        $("affiliate").style.display = "block";
+      // ===== affiliate logic =====
+      const affiliate = $("affiliate");
+
+      const isYellow = data.color === "yellow";
+      const isMajorMall = data.platform === "amazon" || data.platform === "rakuten";
+
+      if (isYellow && !isMajorMall) {
+        affiliate.style.display = "block";
+
+        const keyword = encodeURIComponent(new URL(data.url).hostname);
 
         $("amazonLink").href =
-          `https://www.amazon.co.jp/s?k=${encodeURIComponent(domain)}&tag=ksmtaka-22`;
+          `https://www.amazon.co.jp/s?k=${keyword}&tag=ksmtaka-22`;
 
         $("rakutenLink").href =
-          `https://search.rakuten.co.jp/search/mall/${encodeURIComponent(domain)}/?scid=af_pc_etc&affiliateId=4f46af35.2e32b7db.4f46af36.85561797`;
+          `https://hb.afl.rakuten.co.jp/hgc/4f46af35.2e32b7db.4f46af36.85561797/?pc=https://search.rakuten.co.jp/search/mall/${keyword}/`;
+
       } else {
-        $("affiliate").style.display = "none";
+        affiliate.style.display = "none";
       }
-    };
+    }
+
+    $("goBtn").addEventListener("click", diagnose);
+    $("urlInput").addEventListener("keydown", e => {
+      if (e.key === "Enter") diagnose();
+    });
   </script>
 </body>
 </html>
