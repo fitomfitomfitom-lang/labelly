@@ -335,6 +335,80 @@
       line-height: 1.2
     }
 
+    /* ===== Affiliate (new) ===== */
+    .affiliate {
+      margin-top: 12px;
+      border: 1px solid #e2e8f0;
+      background: #fbfdff;
+      border-radius: 16px;
+      padding: 12px 12px;
+      box-shadow: var(--shadow2);
+      display: none;
+      /* JSで条件表示 */
+    }
+
+    .affiliateTitle {
+      font-weight: 950;
+      font-size: 14px;
+      color: #0f172a;
+      margin: 0 0 6px;
+    }
+
+    .affiliateText {
+      color: #475569;
+      font-weight: 800;
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 10px;
+    }
+
+    .affBtns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .affBtn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #dbe7ff;
+      background: #eef4ff;
+      color: #0f172a;
+      font-weight: 950;
+      font-size: 13px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: .15s filter, .15s transform;
+      white-space: nowrap;
+    }
+
+    .affBtn:hover {
+      filter: brightness(1.02)
+    }
+
+    .affBtn:active {
+      transform: translateY(1px)
+    }
+
+    .affBtn.primary {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .affFine {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    /* ===== /Affiliate ===== */
+
     .grid3 {
       padding: 18px 22px 6px;
       display: grid;
@@ -503,87 +577,6 @@
       display: none !important;
     }
 
-    /* ===========================
-       Affiliate block
-       =========================== */
-    .aff {
-      margin: 16px 22px 0;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: #fff;
-      box-shadow: var(--shadow2);
-      padding: 14px 14px;
-      display: none;
-      /* JSで表示制御 */
-    }
-
-    .affTop {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .affTitle {
-      font-weight: 950;
-      font-size: 15px;
-      color: #0f172a;
-    }
-
-    .affMsg {
-      margin: 4px 0 0;
-      color: #475569;
-      font-weight: 800;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .affBtns {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    .affBtn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      border-radius: 14px;
-      padding: 11px 12px;
-      font-weight: 950;
-      font-size: 13px;
-      border: 1px solid #e2e8f0;
-      background: #f8fafc;
-      color: #0f172a;
-      cursor: pointer;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .affBtn:hover {
-      filter: brightness(1.02);
-      text-decoration: none;
-    }
-
-    .affBtn .pill {
-      font-size: 12px;
-      font-weight: 950;
-      border-radius: 999px;
-      padding: 4px 8px;
-      background: #0b1226;
-      color: #fff;
-    }
-
-    .affFine {
-      margin-top: 10px;
-      color: #64748b;
-      font-size: 12px;
-      line-height: 1.6;
-    }
-
     @media (max-width: 820px) {
       .grid3 {
         grid-template-columns: 1fr;
@@ -607,11 +600,6 @@
 
       .summaryRow {
         grid-template-columns: 1fr;
-      }
-
-      .aff {
-        margin: 16px 0 0;
-        border-radius: var(--radius);
       }
     }
   </style>
@@ -671,6 +659,18 @@
           <div class="scoreText">
             <div class="scoreGrade" id="scoreGrade">—</div>
             <div class="scoreDesc" id="scoreDesc">—</div>
+
+            <!-- Affiliate block (new) -->
+            <div class="affiliate" id="affiliateBlock" aria-label="正規モール導線">
+              <div class="affiliateTitle">正規モールで同等商品を探す</div>
+              <p class="affiliateText" id="affiliateText">—</p>
+              <div class="affBtns">
+                <a class="affBtn primary" id="affAmazon" href="#" target="_blank" rel="noopener noreferrer">Amazonで探す</a>
+                <a class="affBtn" id="affRakuten" href="#" target="_blank" rel="noopener noreferrer">楽天で探す</a>
+              </div>
+              <div class="affFine">※アフィリエイトリンクを含みます。</div>
+            </div>
+            <!-- /Affiliate block -->
           </div>
         </div>
 
@@ -678,25 +678,6 @@
           <span class="bulb">💡</span>
           <div id="oneLineText"></div>
         </div>
-      </div>
-
-      <!-- ✅ Affiliate block (orange/yellow & not amazon/rakuten で表示) -->
-      <div class="aff" id="affiliateBlock" aria-label="正規モールで探す">
-        <div class="affTop">
-          <div>
-            <div class="affTitle">正規モールで同等商品を探す</div>
-            <div class="affMsg" id="affiliateMsg">—</div>
-          </div>
-        </div>
-        <div class="affBtns">
-          <a class="affBtn" id="amazonLink" href="#" target="_blank" rel="noopener noreferrer">
-            <span class="pill">Amazon</span> 検索する
-          </a>
-          <a class="affBtn" id="rakutenLink" href="#" target="_blank" rel="noopener noreferrer">
-            <span class="pill">楽天</span> 検索する
-          </a>
-        </div>
-        <div class="affFine">※リンクにはアフィリエイトIDが含まれます。</div>
       </div>
 
       <div class="grid3">
@@ -789,6 +770,11 @@
     const scoreGrade = $("scoreGrade");
     const scoreDesc = $("scoreDesc");
 
+    const affiliateBlock = $("affiliateBlock");
+    const affiliateText = $("affiliateText");
+    const affAmazon = $("affAmazon");
+    const affRakuten = $("affRakuten");
+
     const oneLine = $("oneLine");
     const oneLineText = $("oneLineText");
 
@@ -809,15 +795,9 @@
     const evUrls = $("evUrls");
     const evSnips = $("evSnips");
 
-    // affiliate elements
-    const affiliateBlock = $("affiliateBlock");
-    const affiliateMsg = $("affiliateMsg");
-    const amazonLink = $("amazonLink");
-    const rakutenLink = $("rakutenLink");
-
     // ===== Affiliate IDs =====
     const AMAZON_TAG = "ksmtaka-22";
-    const RAKUTEN_HGC = "4f46af35.2e32b7db.4f46af36.85561797";
+    const RAKUTEN_AFF = "4f46af35.2e32b7db.4f46af36.85561797";
 
     function setDotColor(color) {
       const map = {
@@ -846,14 +826,14 @@
 
       const grade =
         (color === "green" || s >= 75) ? "高い（かなり安心）" :
-          (color === "yellow" || s >= 50) ? "中（条件確認推奨）" :
+          (color === "yellow" || s >= 50) ? "中（要確認）" :
             "低〜要注意（事前確認必須）";
 
       const desc =
         (color === "green" || s >= 75)
           ? "特商法・連絡先・返品などの情報が揃っている可能性が高いです。"
           : (color === "yellow" || s >= 50)
-            ? "情報はあるが、納期や発送形態がブレやすい可能性。購入前に条件確認を。"
+            ? "情報はあるが揃いきっていない可能性。配送・返品・特商法ページを先に確認推奨。"
             : "公開情報の取得や条件確認が難しい可能性。購入前に必ず自己確認を。";
 
       return { grade, desc };
@@ -924,49 +904,55 @@
         .join("\n");
     }
 
-    // ===== affiliate helpers =====
-    function buildAmazonSearchUrl(query) {
-      const q = encodeURIComponent(query);
-      return `https://www.amazon.co.jp/s?k=${q}&tag=${encodeURIComponent(AMAZON_TAG)}`;
-    }
-
-    function buildRakutenSearchUrl(query) {
-      const q = encodeURIComponent(query);
-      const pc = encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${q}/`);
-      const m = encodeURIComponent(`https://m.rakuten.co.jp/search/all/${q}/`);
-      // Rakuten Affiliate (HGC) wrapper
-      return `https://hb.afl.rakuten.co.jp/hgc/${encodeURIComponent(RAKUTEN_HGC)}/?pc=${pc}&m=${m}`;
-    }
-
-    function affiliateQueryFromInputOrDomain(rawInput, domain) {
-      const s = (rawInput || "").trim();
-      if (s) return s;               // ユーザー入力そのものを検索語として使う（簡易）
-      return domain || "通販";        // 念のため
-    }
-
-    function applyAffiliateVisibility({ color, platform, rawInput, domain }) {
-      const isTargetColor = (color === "orange" || color === "yellow");
-      const isMall = (platform === "amazon" || platform === "rakuten");
-
-      if (isTargetColor && !isMall) {
-        affiliateBlock.style.display = "block";
-
-        // yellowだけ文言を変える（要件）
-        affiliateMsg.textContent =
-          (color === "yellow")
-            ? "※正規モールで同等商品を探すのも一つの選択です。"
-            : "※不安が残るなら、正規モールで同等商品を探すのが安全です。";
-
-        const q = affiliateQueryFromInputOrDomain(rawInput, domain);
-        amazonLink.href = buildAmazonSearchUrl(q);
-        rakutenLink.href = buildRakutenSearchUrl(q);
-      } else {
-        affiliateBlock.style.display = "none";
-        affiliateMsg.textContent = "";
-        amazonLink.href = "#";
-        rakutenLink.href = "#";
+    // ===== Affiliate helpers =====
+    function getKeywordFromUrl(u) {
+      try {
+        const host = new URL(u).hostname.replace(/^www\./, "");
+        const first = host.split(".")[0] || host;
+        // URLっぽい記号を除去して、最低限の検索語に
+        return decodeURIComponent(first).replace(/[^a-zA-Z0-9ぁ-んァ-ヶ一-龠_-]/g, " ").trim() || host;
+      } catch {
+        return "";
       }
     }
+
+    function buildAmazonSearchUrl(keyword) {
+      const k = encodeURIComponent(keyword || "");
+      return `https://www.amazon.co.jp/s?k=${k}&tag=${encodeURIComponent(AMAZON_TAG)}`;
+    }
+
+    function buildRakutenSearchUrl(keyword) {
+      const k = encodeURIComponent(keyword || "");
+      const target = `https://search.rakuten.co.jp/search/mall/${k}/`;
+      const enc = encodeURIComponent(target);
+      return `https://hb.afl.rakuten.co.jp/hgc/${encodeURIComponent(RAKUTEN_AFF)}/?pc=${enc}&m=${enc}`;
+    }
+
+    function updateAffiliate(data) {
+      const color = (data && data.color) ? String(data.color) : "";
+      const platform = (data && data.platform) ? String(data.platform) : "";
+
+      const shouldShowByColor = (color === "orange" || color === "yellow");
+      const isAlreadyMall = (platform === "amazon" || platform === "rakuten");
+
+      if (!shouldShowByColor || isAlreadyMall) {
+        affiliateBlock.style.display = "none";
+        return;
+      }
+
+      const keyword = getKeywordFromUrl(data.url || urlInput.value || "");
+      affAmazon.href = buildAmazonSearchUrl(keyword);
+      affRakuten.href = buildRakutenSearchUrl(keyword);
+
+      if (color === "yellow") {
+        affiliateText.textContent = "※正規モールで同等商品を探すのも一つの選択です。";
+      } else {
+        affiliateText.textContent = "※事前確認が難しい場合、正規モールで同等商品を探すと安心です。";
+      }
+
+      affiliateBlock.style.display = "block";
+    }
+    // ===== /Affiliate helpers =====
 
     function render(data) {
       result.style.display = "block";
@@ -990,6 +976,9 @@
       scoreGrade.textContent = copy.grade;
       scoreDesc.textContent = copy.desc;
 
+      // affiliate
+      updateAffiliate(data);
+
       if (data.oneLine) {
         oneLine.style.display = "flex";
         oneLineText.textContent = data.oneLine;
@@ -997,14 +986,6 @@
         oneLine.style.display = "none";
         oneLineText.textContent = "";
       }
-
-      // ✅ affiliate show/hide（要件）
-      applyAffiliateVisibility({
-        color: data.color,
-        platform: data.platform,
-        rawInput: urlInput.value,
-        domain,
-      });
 
       delivery.textContent = data.delivery || "-";
       eta.textContent = data.eta || "-";
