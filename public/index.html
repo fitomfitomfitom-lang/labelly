@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Labelly</title>
 
-  <!-- Favicon -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-  <!-- OG -->
   <meta property="og:title" content="Labelly" />
   <meta property="og:description" content="配送・返品・表記など、見落としやすい条件を事前に見える化します。" />
   <meta property="og:image" content="/og.svg" />
@@ -65,17 +63,12 @@
       gap: 14px;
     }
 
-    .brand svg {
-      display: block
-    }
-
     .brand .word {
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: .4px;
       font-size: 28px;
       color: #fff;
       transform: translateY(2px);
-      /* yの分だけ微調整 */
       line-height: 1;
     }
 
@@ -96,7 +89,7 @@
     .hero h1 {
       margin: 0 0 10px;
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 900;
       color: #334155;
       text-align: center;
       letter-spacing: .2px;
@@ -137,22 +130,22 @@
     button {
       border: 0;
       background: var(--blue);
-      color: white;
+      color: #fff;
       border-radius: 14px;
       padding: 15px 16px;
       font-size: 16px;
-      font-weight: 800;
+      font-weight: 900;
       cursor: pointer;
       box-shadow: 0 12px 26px rgba(47, 91, 255, .25);
       transition: .15s transform, .15s filter;
     }
 
     button:hover {
-      filter: brightness(1.02);
+      filter: brightness(1.02)
     }
 
     button:active {
-      transform: translateY(1px);
+      transform: translateY(1px)
     }
 
     button:disabled {
@@ -169,7 +162,7 @@
       line-height: 1.7;
     }
 
-    /* Result */
+    /* result card */
     .result {
       margin-top: 20px;
       background: var(--panel);
@@ -188,7 +181,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -196,10 +189,9 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 700;
+      font-weight: 950;
       font-size: 26px;
       letter-spacing: .2px;
-      min-width: 240px;
     }
 
     .dot {
@@ -217,83 +209,82 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: flex-end;
-      margin-left: auto;
     }
 
     .badge {
       display: inline-flex;
-      gap: 8px;
       align-items: center;
+      gap: 8px;
       border-radius: 999px;
-      padding: 9px 12px;
-      border: 1px solid #e2e8f0;
-      background: #f8fafc;
+      padding: 8px 12px;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 900;
+      border: 1px solid #e2e8f0;
+      background: #f1f5f9;
       color: #334155;
       white-space: nowrap;
     }
 
-    .badge .pill {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #94a3b8;
-    }
-
-    .badgePlatform {
-      background: #0b1020;
-      border-color: rgba(255, 255, 255, .1);
+    .badge.dark {
+      background: #0b1226;
+      border-color: #0b1226;
       color: #fff;
     }
 
-    .badgePlatform .pill {
-      background: #fff;
-      opacity: .9;
+    .badge .miniDot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #94a3b8;
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, .04);
     }
 
-    .scoreWrap {
+    .summaryRow {
       margin-top: 14px;
       display: grid;
-      grid-template-columns: 140px 1fr;
+      grid-template-columns: 170px 1fr;
       gap: 14px;
-      align-items: center;
+      align-items: stretch;
     }
 
-    .meter {
+    .scoreCard {
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 12px;
       background: #fff;
       box-shadow: var(--shadow2);
+      padding: 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 92px;
     }
 
-    .meterTop {
+    .scoreTop {
       display: flex;
-      align-items: baseline;
+      align-items: flex-end;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 10px;
     }
 
-    .meterTop .k {
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 12px;
+    .scoreLabel {
+      font-size: 13px;
+      font-weight: 900;
+      color: #475569;
+    }
+
+    .scoreNum {
+      font-size: 24px;
+      font-weight: 950;
       letter-spacing: .2px;
-    }
-
-    .meterTop .v {
-      font-weight: 1000;
-      font-size: 22px;
+      color: #0f172a;
     }
 
     .bar {
       height: 10px;
       border-radius: 999px;
-      background: #eaf0ff;
+      background: #e8eef9;
       overflow: hidden;
-      border: 1px solid #dbe7ff;
+      border: 1px solid #e6edf6;
     }
 
     .bar>div {
@@ -301,26 +292,27 @@
       width: 0%;
       border-radius: 999px;
       background: var(--blue);
-      transition: width .35s ease;
+      transition: width .3s ease;
     }
 
-    .scoreHint {
+    .scoreText {
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 14px 14px;
       background: #fff;
       box-shadow: var(--shadow2);
+      padding: 14px 14px;
+      min-height: 92px;
     }
 
-    .scoreHint .t {
-      font-weight: 1000;
+    .scoreGrade {
+      font-weight: 950;
       font-size: 16px;
       margin-bottom: 6px;
-      letter-spacing: .2px;
     }
 
-    .scoreHint .d {
-      color: var(--muted);
+    .scoreDesc {
+      color: #475569;
+      font-weight: 800;
       line-height: 1.7;
       font-size: 13px;
     }
@@ -331,8 +323,8 @@
       border-radius: 14px;
       background: #f1f5f9;
       color: #0f172a;
-      font-weight: 700;
-      line-height: 1.6;
+      font-weight: 900;
+      line-height: 1.65;
       display: flex;
       gap: 10px;
       align-items: flex-start;
@@ -368,7 +360,7 @@
 
     .mini .v {
       font-size: 18px;
-      font-weight: 1000;
+      font-weight: 950;
       line-height: 1.45;
     }
 
@@ -392,7 +384,7 @@
     .box h3 {
       margin: 0 0 10px;
       font-size: 18px;
-      font-weight: 1000;
+      font-weight: 950;
     }
 
     ul {
@@ -410,14 +402,6 @@
       color: var(--muted);
     }
 
-    .footerNote {
-      padding: 0 22px 22px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.8;
-    }
-
-    /* Evidence toggle */
     .evidenceWrap {
       padding: 0 22px 22px;
     }
@@ -429,18 +413,18 @@
       cursor: pointer;
       user-select: none;
       color: var(--blue);
-      font-weight: 1000;
-      margin-top: 14px;
+      font-weight: 950;
+      margin-top: 12px;
     }
 
     .toggle .tri {
       display: inline-block;
       transform: rotate(0deg);
-      transition: .15s;
+      transition: .15s
     }
 
     .toggle.open .tri {
-      transform: rotate(90deg);
+      transform: rotate(90deg)
     }
 
     .evidence {
@@ -473,7 +457,7 @@
     .evBox h4 {
       margin: 0 0 10px;
       font-size: 14px;
-      font-weight: 1000;
+      font-weight: 950;
       color: #334155;
     }
 
@@ -498,19 +482,106 @@
       line-height: 1.6;
     }
 
-    .urlList a {
-      color: var(--blue);
-      text-decoration: none;
-      word-break: break-all;
+    .footerNote {
+      padding: 0 22px 22px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
     }
 
-    .urlList a:hover {
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
       text-decoration: underline;
     }
 
-    /* optional explanation block */
+    /* Optional block: emptyなら隠す */
     #explanation:empty {
       display: none !important;
+    }
+
+    /* ===========================
+       Affiliate block
+       =========================== */
+    .aff {
+      margin: 16px 22px 0;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow2);
+      padding: 14px 14px;
+      display: none;
+      /* JSで表示制御 */
+    }
+
+    .affTop {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .affTitle {
+      font-weight: 950;
+      font-size: 15px;
+      color: #0f172a;
+    }
+
+    .affMsg {
+      margin: 4px 0 0;
+      color: #475569;
+      font-weight: 800;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .affBtns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .affBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 14px;
+      padding: 11px 12px;
+      font-weight: 950;
+      font-size: 13px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #0f172a;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .affBtn:hover {
+      filter: brightness(1.02);
+      text-decoration: none;
+    }
+
+    .affBtn .pill {
+      font-size: 12px;
+      font-weight: 950;
+      border-radius: 999px;
+      padding: 4px 8px;
+      background: #0b1226;
+      color: #fff;
+    }
+
+    .affFine {
+      margin-top: 10px;
+      color: #64748b;
+      font-size: 12px;
+      line-height: 1.6;
     }
 
     @media (max-width: 820px) {
@@ -534,12 +605,13 @@
         font-size: 22px;
       }
 
-      .scoreWrap {
+      .summaryRow {
         grid-template-columns: 1fr;
       }
 
-      .badges {
-        justify-content: flex-start;
+      .aff {
+        margin: 16px 0 0;
+        border-radius: var(--radius);
       }
     }
   </style>
@@ -562,7 +634,7 @@
       <p>配送・返品・表記など、見落としやすい条件を事前に見える化します。</p>
 
       <div class="inputRow">
-        <input id="urlInput" type="url" placeholder="https://example.com" value="https://www.beerbeerbeer.beer/" />
+        <input id="urlInput" type="url" placeholder="https://example.com" value="" />
         <button id="goBtn">診断</button>
       </div>
 
@@ -580,25 +652,25 @@
           </div>
 
           <div class="badges">
-            <span class="badge" id="badgeDomain"><span class="pill"></span><span id="domainText">ドメイン：-</span></span>
-            <span class="badge badgePlatform" id="badgePlatform"><span class="pill"></span><span id="platformText">推定：-</span></span>
+            <span class="badge" id="badgeDomain"><span class="miniDot"></span> ドメイン：-</span>
+            <span class="badge dark" id="badgePlatform"><span class="miniDot"></span> 推定：-</span>
           </div>
         </div>
 
-        <div class="scoreWrap">
-          <div class="meter">
-            <div class="meterTop">
-              <div class="k">信頼スコア</div>
-              <div class="v" id="scoreText">-</div>
+        <div class="summaryRow">
+          <div class="scoreCard">
+            <div class="scoreTop">
+              <div class="scoreLabel">信頼スコア</div>
+              <div class="scoreNum" id="scoreNum">-</div>
             </div>
-            <div class="bar" aria-label="score bar">
+            <div class="bar">
               <div id="scoreBar"></div>
             </div>
           </div>
 
-          <div class="scoreHint">
-            <div class="t" id="scoreTitle">—</div>
-            <div class="d" id="scoreDesc">—</div>
+          <div class="scoreText">
+            <div class="scoreGrade" id="scoreGrade">—</div>
+            <div class="scoreDesc" id="scoreDesc">—</div>
           </div>
         </div>
 
@@ -606,6 +678,25 @@
           <span class="bulb">💡</span>
           <div id="oneLineText"></div>
         </div>
+      </div>
+
+      <!-- ✅ Affiliate block (orange/yellow & not amazon/rakuten で表示) -->
+      <div class="aff" id="affiliateBlock" aria-label="正規モールで探す">
+        <div class="affTop">
+          <div>
+            <div class="affTitle">正規モールで同等商品を探す</div>
+            <div class="affMsg" id="affiliateMsg">—</div>
+          </div>
+        </div>
+        <div class="affBtns">
+          <a class="affBtn" id="amazonLink" href="#" target="_blank" rel="noopener noreferrer">
+            <span class="pill">Amazon</span> 検索する
+          </a>
+          <a class="affBtn" id="rakutenLink" href="#" target="_blank" rel="noopener noreferrer">
+            <span class="pill">楽天</span> 検索する
+          </a>
+        </div>
+        <div class="affFine">※リンクにはアフィリエイトIDが含まれます。</div>
       </div>
 
       <div class="grid3">
@@ -661,7 +752,7 @@
             </div>
             <div class="evBox">
               <h4>確認したURL</h4>
-              <div class="evMono urlList" id="evUrls"></div>
+              <div class="evMono" id="evUrls"></div>
             </div>
           </div>
 
@@ -690,13 +781,12 @@
     const dot = $("dot");
     const labelText = $("labelText");
 
-    const domainText = $("domainText");
-    const platformText = $("platformText");
+    const badgeDomain = $("badgeDomain");
     const badgePlatform = $("badgePlatform");
 
-    const scoreText = $("scoreText");
+    const scoreNum = $("scoreNum");
     const scoreBar = $("scoreBar");
-    const scoreTitle = $("scoreTitle");
+    const scoreGrade = $("scoreGrade");
     const scoreDesc = $("scoreDesc");
 
     const oneLine = $("oneLine");
@@ -718,6 +808,16 @@
     const evRet = $("evRet");
     const evUrls = $("evUrls");
     const evSnips = $("evSnips");
+
+    // affiliate elements
+    const affiliateBlock = $("affiliateBlock");
+    const affiliateMsg = $("affiliateMsg");
+    const amazonLink = $("amazonLink");
+    const rakutenLink = $("rakutenLink");
+
+    // ===== Affiliate IDs =====
+    const AMAZON_TAG = "ksmtaka-22";
+    const RAKUTEN_HGC = "4f46af35.2e32b7db.4f46af36.85561797";
 
     function setDotColor(color) {
       const map = {
@@ -741,10 +841,22 @@
       return m[p] || p || "不明";
     }
 
-    function platformBadgeStyle(p) {
-      // ちょい「プロダクト感」：プラットフォームで雰囲気変える（色は固定しない方針ならここは文字だけでもOK）
-      // 今回は背景を共通（黒）にして、表示テキストで差を出す
-      return;
+    function scoreCopy(score, color) {
+      const s = Number.isFinite(score) ? score : 0;
+
+      const grade =
+        (color === "green" || s >= 75) ? "高い（かなり安心）" :
+          (color === "yellow" || s >= 50) ? "中（条件確認推奨）" :
+            "低〜要注意（事前確認必須）";
+
+      const desc =
+        (color === "green" || s >= 75)
+          ? "特商法・連絡先・返品などの情報が揃っている可能性が高いです。"
+          : (color === "yellow" || s >= 50)
+            ? "情報はあるが、納期や発送形態がブレやすい可能性。購入前に条件確認を。"
+            : "公開情報の取得や条件確認が難しい可能性。購入前に必ず自己確認を。";
+
+      return { grade, desc };
     }
 
     function clearList(el) { el.innerHTML = ""; }
@@ -779,21 +891,12 @@
       }
     }
 
-    function scoreCopy(score) {
-      const ensureNum = (v) => (typeof v === "number" && isFinite(v)) ? v : null;
-      const s = ensureNum(score);
-
-      if (s === null) {
-        return { title: "スコア未算出", desc: "取得できた情報が少ない可能性があります。根拠ページを確認してください。" };
-      }
-      if (s >= 80) return { title: "高い（かなり安心）", desc: "特商法・連絡先・返品などの情報が揃っている可能性が高いです。" };
-      if (s >= 60) return { title: "中〜高（概ね安心）", desc: "主要情報は見えるが、配送/返品の条件を最後に確認すると安心です。" };
-      if (s >= 40) return { title: "中（要確認）", desc: "情報はあるが揃いきっていない可能性。配送・返品・特商法ページを先に確認推奨。" };
-      if (s >= 20) return { title: "低め（慎重に）", desc: "公開情報が限定的な可能性があります。購入前に条件の確認が必須です。" };
-      return { title: "かなり低い（要注意）", desc: "取得できた根拠が少ない/取得不可の可能性。購入は慎重に判断してください。" };
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
     }
-
-    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 
     function renderSnippets(snips) {
       const ui = (snips && snips.ui) ? snips.ui : [];
@@ -804,62 +907,89 @@
       const lines = [];
       if (ui.length) lines.push("UI:\n- " + ui.join("\n- "));
       if (ship.length) lines.push("配送:\n- " + ship.join("\n- "));
-      if (ret.length) lines.push("返品:\n- " + ret.join("\n- "));
+      if (ret.length) lines.push("返品/表記:\n- " + ret.join("\n- "));
       if (contact.length) lines.push("連絡先っぽい表記:\n- " + contact.join("\n- "));
       if (!lines.length) lines.push("（抜粋なし）");
 
-      evSnips.textContent = lines.join("\n\n");
+      evSnips.innerHTML = escapeHtml(lines.join("\n\n"));
     }
 
     function renderUrls(urls) {
-      evUrls.innerHTML = "";
       if (!urls || !urls.length) {
         evUrls.textContent = "（なし）";
         return;
       }
-      const frag = document.createDocumentFragment();
-      urls.forEach((u) => {
-        const line = document.createElement("div");
-        line.textContent = "- ";
-        const a = document.createElement("a");
-        a.href = u;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.textContent = u;
-        line.appendChild(a);
-        frag.appendChild(line);
-      });
-      evUrls.appendChild(frag);
+      evUrls.innerHTML = urls
+        .map(u => `- <a href="${u}" target="_blank" rel="noopener noreferrer">${escapeHtml(u)}</a>`)
+        .join("\n");
+    }
+
+    // ===== affiliate helpers =====
+    function buildAmazonSearchUrl(query) {
+      const q = encodeURIComponent(query);
+      return `https://www.amazon.co.jp/s?k=${q}&tag=${encodeURIComponent(AMAZON_TAG)}`;
+    }
+
+    function buildRakutenSearchUrl(query) {
+      const q = encodeURIComponent(query);
+      const pc = encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${q}/`);
+      const m = encodeURIComponent(`https://m.rakuten.co.jp/search/all/${q}/`);
+      // Rakuten Affiliate (HGC) wrapper
+      return `https://hb.afl.rakuten.co.jp/hgc/${encodeURIComponent(RAKUTEN_HGC)}/?pc=${pc}&m=${m}`;
+    }
+
+    function affiliateQueryFromInputOrDomain(rawInput, domain) {
+      const s = (rawInput || "").trim();
+      if (s) return s;               // ユーザー入力そのものを検索語として使う（簡易）
+      return domain || "通販";        // 念のため
+    }
+
+    function applyAffiliateVisibility({ color, platform, rawInput, domain }) {
+      const isTargetColor = (color === "orange" || color === "yellow");
+      const isMall = (platform === "amazon" || platform === "rakuten");
+
+      if (isTargetColor && !isMall) {
+        affiliateBlock.style.display = "block";
+
+        // yellowだけ文言を変える（要件）
+        affiliateMsg.textContent =
+          (color === "yellow")
+            ? "※正規モールで同等商品を探すのも一つの選択です。"
+            : "※不安が残るなら、正規モールで同等商品を探すのが安全です。";
+
+        const q = affiliateQueryFromInputOrDomain(rawInput, domain);
+        amazonLink.href = buildAmazonSearchUrl(q);
+        rakutenLink.href = buildRakutenSearchUrl(q);
+      } else {
+        affiliateBlock.style.display = "none";
+        affiliateMsg.textContent = "";
+        amazonLink.href = "#";
+        rakutenLink.href = "#";
+      }
     }
 
     function render(data) {
       result.style.display = "block";
 
-      // header label
+      const score = Number.isFinite(data.score) ? data.score : 0;
+
       setDotColor(data.color);
       labelText.textContent = data.labelText || "—";
 
-      // domain/platform
       const domain = (() => {
         try { return new URL(data.url).hostname; } catch { return "-"; }
       })();
-      domainText.textContent = `ドメイン：${domain}`;
 
-      const p = platformJa(data.platform);
-      platformText.textContent = `推定：${p}`;
-      platformBadgeStyle(p);
+      badgeDomain.innerHTML = `<span class="miniDot"></span> ドメイン：${escapeHtml(domain)}`;
+      badgePlatform.innerHTML = `<span class="miniDot"></span> 推定：${escapeHtml(platformJa(data.platform))}`;
 
-      // score
-      const score = (typeof data.score === "number" && isFinite(data.score)) ? data.score : null;
-      scoreText.textContent = (score === null) ? "-" : `${score}`;
-      const pct = (score === null) ? 0 : clamp(score, 0, 100);
-      scoreBar.style.width = pct + "%";
+      scoreNum.textContent = String(score);
+      scoreBar.style.width = Math.max(0, Math.min(100, score)) + "%";
 
-      const sc = scoreCopy(score);
-      scoreTitle.textContent = sc.title;
-      scoreDesc.textContent = sc.desc;
+      const copy = scoreCopy(score, data.color);
+      scoreGrade.textContent = copy.grade;
+      scoreDesc.textContent = copy.desc;
 
-      // one-line summary
       if (data.oneLine) {
         oneLine.style.display = "flex";
         oneLineText.textContent = data.oneLine;
@@ -868,7 +998,14 @@
         oneLineText.textContent = "";
       }
 
-      // main fields
+      // ✅ affiliate show/hide（要件）
+      applyAffiliateVisibility({
+        color: data.color,
+        platform: data.platform,
+        rawInput: urlInput.value,
+        domain,
+      });
+
       delivery.textContent = data.delivery || "-";
       eta.textContent = data.eta || "-";
       ret.textContent = data.return || "-";
@@ -877,16 +1014,14 @@
       addItems(goodList, data.good);
       addItems(cautionList, data.caution);
 
-      // evidence
       const ev = data.evidence || {};
       addEvidenceList(evUi, ev.ui);
       addEvidenceList(evShip, ev.ship);
       addEvidenceList(evRet, ev.ret);
-
       renderUrls(ev.urlsChecked || []);
       renderSnippets(ev.snippets || {});
 
-      // close evidence by default
+      // 開閉は毎回閉じる
       evidence.classList.remove("open");
       toggleEvidence.classList.remove("open");
     }
@@ -904,7 +1039,6 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url: raw }),
         });
-
         if (!res.ok) throw new Error("API error");
         const data = await res.json();
         render(data);
