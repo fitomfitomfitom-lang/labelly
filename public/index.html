@@ -3,11 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Labelly｜通販サイトの条件を事前に見える化</title>
-  <meta name="description" content="この通販サイトで『あとから困らないか？』配送・返品・表記など、見落としやすい条件を事前に見える化します。" />
+  <title>Labelly</title>
 
-  <!-- Favicon / OG（既存のまま使える） -->
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- Favicon / OG -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <meta property="og:title" content="Labelly" />
   <meta property="og:description" content="配送・返品・表記など、見落としやすい条件を事前に見える化します。" />
   <meta property="og:image" content="/og.svg" />
@@ -15,361 +14,720 @@
 
   <style>
     :root {
-      --bg: #f4f6fb;
-      --card: #ffffff;
+      --bg: #eef2f7;
+      --panel: #ffffff;
       --text: #0f172a;
       --muted: #64748b;
-      --border: #e5e7eb;
-      --shadow: 0 18px 40px rgba(2, 6, 23, .10);
-      --radius: 16px;
+      --line: #e5e7eb;
+      --shadow: 0 10px 30px rgba(2, 8, 23, .08);
+      --shadow2: 0 6px 18px rgba(2, 8, 23, .08);
       --blue: #2563eb;
       --green: #16a34a;
-      --yellow: #eab308;
+      --yellow: #f59e0b;
       --orange: #f97316;
+      --red: #ef4444;
+      --radius: 22px;
     }
 
     * {
-      box-sizing: border-box;
+      box-sizing: border-box
     }
 
     body {
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Sans", "Noto Sans JP", sans-serif;
       color: var(--text);
       background: var(--bg);
     }
 
-    /* ===== Header（前の感じ：ダーク） ===== */
-    header {
-      background: linear-gradient(180deg, #0b1020 0%, #070a13 100%);
-      color: #fff;
-      border-bottom: 1px solid rgba(255, 255, 255, .08);
+    a {
+      color: var(--blue);
+      text-decoration: none
     }
 
-    .header-inner {
+    a:hover {
+      text-decoration: underline
+    }
+
+    header {
+      background: radial-gradient(1200px 500px at 50% 0%, rgba(37, 99, 235, .45), rgba(2, 6, 23, 0)), #030712;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      padding: 14px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
       max-width: 980px;
       margin: 0 auto;
-      padding: 16px 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
       gap: 10px;
-      user-select: none;
     }
 
-    .logo svg {
-      display: block;
+    .brand svg {
+      display: block
     }
 
-    .logo .word {
-      font-weight: 800;
-      letter-spacing: .2px;
-      font-size: 22px;
-      line-height: 1;
-      transform: translateY(2px);
-      /* ← y の尻尾ぶん、ほんの少し下へ */
-    }
-
-    /* ===== Layout ===== */
-    main {
+    .wrap {
       max-width: 980px;
-      margin: 28px auto 80px;
+      margin: 26px auto 60px;
       padding: 0 18px;
     }
 
     .hero {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background: var(--panel);
       box-shadow: var(--shadow);
-      padding: 22px;
+      border: 1px solid rgba(2, 6, 23, .06);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .hero h1 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #334155;
+      text-align: center;
+      letter-spacing: .02em;
     }
 
     .hero p {
-      margin: 0 0 14px;
+      margin: 0 0 20px;
+      text-align: center;
       color: var(--muted);
       line-height: 1.7;
-      text-align: center;
-      font-size: 14.5px;
     }
 
-    /* ===== Input row ===== */
-    .row {
+    .bar {
       display: flex;
-      gap: 10px;
+      gap: 14px;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
+      margin-top: 14px;
     }
 
-    .url {
-      flex: 1 1 520px;
+    .input {
+      flex: 1 1 540px;
       max-width: 720px;
-      height: 44px;
-      padding: 0 14px;
-      font-size: 15.5px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    input[type="url"] {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid #cbd5e1;
+      background: #eaf1ff;
+      font-size: 18px;
       outline: none;
-      background: #fff;
+      transition: box-shadow .15s, border-color .15s;
     }
 
-    .url:focus {
-      border-color: rgba(37, 99, 235, .55);
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+    input[type="url"]:focus {
+      border-color: rgba(37, 99, 235, .65);
+      box-shadow: 0 0 0 6px rgba(37, 99, 235, .18);
+      background: #eef4ff;
     }
 
-    .btn {
-      height: 44px;
-      padding: 0 18px;
+    button {
+      padding: 16px 22px;
+      border-radius: 16px;
       border: 0;
-      border-radius: 10px;
-      cursor: pointer;
       background: var(--blue);
       color: #fff;
-      font-weight: 700;
-      letter-spacing: .2px;
-      min-width: 96px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, .25);
+      min-width: 110px;
     }
 
-    .btn:disabled {
+    button:disabled {
       opacity: .6;
       cursor: not-allowed;
+      box-shadow: none;
     }
 
-    .hint {
+    .note {
       margin-top: 10px;
       text-align: center;
       color: var(--muted);
-      font-size: 12.5px;
+      font-size: 13px;
     }
 
-    /* ===== Result ===== */
-    #resultWrap {
-      margin-top: 18px;
-    }
-
-    .result-card {
-      background: var(--card);
-      border: 1px solid var(--border);
+    .result {
+      margin-top: 22px;
+      background: var(--panel);
+      box-shadow: var(--shadow2);
+      border: 1px solid rgba(2, 6, 23, .06);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .result-top {
-      padding: 16px 18px 0;
+    .resultHead {
+      padding: 22px 22px 16px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .summary-line {
-      font-weight: 800;
-      line-height: 1.55;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: #f3f4f6;
-      margin: 0 0 14px 0;
+    .summaryLine {
       display: flex;
       gap: 10px;
       align-items: flex-start;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 14px 14px;
+      margin-bottom: 16px;
+      color: #0f172a;
+      font-weight: 700;
+      line-height: 1.6;
     }
 
-    .summary-line .bulb {
-      transform: translateY(1px);
+    .labelRow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
-    .label {
+    .labelTitle {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin: 0 0 12px;
-      font-size: 20px;
+      font-size: 26px;
       font-weight: 900;
+      letter-spacing: .01em;
     }
 
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: #999;
-      box-shadow: 0 0 0 4px rgba(0, 0, 0, .05);
-      flex: 0 0 auto;
-    }
-
-    .dot.green {
-      background: var(--green);
-      box-shadow: 0 0 0 4px rgba(22, 163, 74, .12);
-    }
-
-    .dot.yellow {
-      background: var(--yellow);
-      box-shadow: 0 0 0 4px rgba(234, 179, 8, .14);
-    }
-
-    .dot.orange {
-      background: var(--orange);
-      box-shadow: 0 0 0 4px rgba(249, 115, 22, .14);
-    }
-
-    .grid {
-      padding: 0 18px 18px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .pillRow {
+      display: flex;
       gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
     }
 
     .pill {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 12px;
-      background: #fff;
-      min-height: 72px;
-    }
-
-    .pill h4 {
-      margin: 0 0 6px;
-      font-size: 12.5px;
-      color: var(--muted);
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
-
-    .pill p {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.55;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #334155;
       font-weight: 700;
-      color: #0b1220;
+      font-size: 13px;
+      white-space: nowrap;
     }
 
-    .sections {
-      border-top: 1px solid var(--border);
-      padding: 16px 18px 18px;
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    .dot.green {
+      background: var(--green)
+    }
+
+    .dot.yellow {
+      background: var(--yellow)
+    }
+
+    .dot.orange {
+      background: var(--orange)
+    }
+
+    .dot.red {
+      background: var(--red)
+    }
+
+    .grid3 {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 18px 22px 22px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .sec {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
+    .card {
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
       background: #fff;
+      padding: 18px;
+      min-height: 100px;
     }
 
-    .sec h3 {
-      margin: 0 0 10px;
+    .card h3 {
+      margin: 0 0 8px;
       font-size: 14px;
+      color: #475569;
+      letter-spacing: .02em;
+    }
+
+    .card .big {
+      font-size: 18px;
       font-weight: 900;
+      line-height: 1.5;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    .card .small {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      padding: 18px 22px 22px;
+    }
+
+    .sectionTitle {
+      font-size: 18px;
+      font-weight: 900;
+      margin: 0 0 12px;
     }
 
     ul {
       margin: 0;
       padding-left: 18px;
+      color: #0f172a;
+      line-height: 1.8;
     }
 
-    li {
-      margin: 6px 0;
-      color: #111827;
-      line-height: 1.6;
-      font-size: 14px;
-    }
-
-    .footnote {
-      margin-top: 10px;
+    .muted {
       color: var(--muted);
-      font-size: 12px;
-      line-height: 1.6;
-      text-align: left;
-      padding: 0 18px 18px;
+      font-size: 13px;
+      line-height: 1.7;
     }
 
-    @media (max-width: 860px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .sections {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 18px;
-      }
+    .footerNote {
+      padding: 0 22px 22px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
     }
 
+    /* Explanation block (empty hidden) */
     #explanation:empty {
       display: none !important;
+    }
+
+    #explanation {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px dashed #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    details {
+      margin-top: 14px;
+    }
+
+    summary {
+      cursor: pointer;
+      user-select: none;
+      font-weight: 900;
+      color: #1d4ed8;
+      list-style: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+    }
+
+    summary:hover {
+      background: #eff6ff
+    }
+
+    summary::-webkit-details-marker {
+      display: none
+    }
+
+    .evidenceBox {
+      margin-top: 10px;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      background: #ffffff;
+      padding: 14px 14px;
+    }
+
+    .evGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .evCol {
+      border: 1px solid #eef2f7;
+      border-radius: 14px;
+      padding: 12px;
+      background: #fbfdff;
+    }
+
+    .evCol h4 {
+      margin: 0 0 6px;
+      font-size: 13px;
+      color: #475569;
+      letter-spacing: .02em;
+    }
+
+    .evCol ul {
+      padding-left: 18px;
+      margin: 0;
+      color: #0f172a;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .codeLine {
+      display: block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      color: #0f172a;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 8px 10px;
+      border-radius: 12px;
+      margin-top: 8px;
+      overflow: auto;
+      white-space: nowrap;
+    }
+
+    .pageList a {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+
+    .hide {
+      display: none !important
+    }
+
+    @media (max-width: 900px) {
+      .grid3 {
+        grid-template-columns: 1fr
+      }
+
+      .grid2 {
+        grid-template-columns: 1fr
+      }
+
+      .labelTitle {
+        font-size: 22px
+      }
+
+      input[type="url"] {
+        font-size: 16px
+      }
+
+      .evGrid {
+        grid-template-columns: 1fr
+      }
     }
   </style>
 </head>
 
 <body>
   <header>
-    <div class="header-inner">
-      <div class="logo" aria-label="Labelly">
-        <!-- tag icon -->
-        <svg width="34" height="34" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-          <path d="M8 10h18l10 12-10 12H8a6 6 0 0 1-6-6V16a6 6 0 0 1 6-6z" fill="#2563EB" />
-          <circle cx="14" cy="22" r="3" fill="#fff" />
-        </svg>
-        <div class="word">Labelly</div>
-      </div>
+    <div class="brand" aria-label="Labelly">
+      <!-- Tag icon + white "Labelly" (baseline adjusted slightly downward) -->
+      <svg width="240" height="44" viewBox="0 0 240 44" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Labelly logo">
+        <path d="M6 8h30l10 14-10 14H6a6 6 0 0 1-6-6V14a6 6 0 0 1 6-6z" fill="#2563EB" />
+        <circle cx="14" cy="22" r="3" fill="#fff" />
+        <!-- y のディセンダで中心がズレて見えるので baseline を少し下げる -->
+        <text x="60" y="30" font-size="22" font-weight="800" fill="#fff" font-family="Inter, system-ui, sans-serif">
+          Labelly
+        </text>
+      </svg>
     </div>
   </header>
 
-  <main>
+  <main class="wrap">
     <section class="hero">
-      <p>
-        この通販サイトで「あとから困らないか？」<br>
-        配送・返品・表記など、見落としやすい条件を事前に見える化します。
-      </p>
+      <h1>この通販サイトで「あとから困らないか？」</h1>
+      <p>配送・返品・表記など、見落としやすい条件を事前に見える化します。</p>
 
-      <div class="row">
-        <input id="urlInput" class="url" inputmode="url" placeholder="https://example.com" autocomplete="off" />
-        <button id="btn" class="btn" type="button">診断</button>
+      <div class="bar">
+        <div class="input">
+          <input id="urlInput" type="url" inputmode="url" placeholder="https://example.com" autocomplete="off" spellcheck="false" />
+          <button id="goBtn">診断</button>
+        </div>
       </div>
-      <div class="hint">※この診断は公開情報をもとにした推定です。実際の条件は販売者の案内をご確認ください。</div>
-    </section>
 
-    <div id="resultWrap"></div>
+      <div class="note">※この診断は公開情報をもとにした推定です。実際の条件は販売者の案内をご確認ください。</div>
+
+      <div id="resultBox" class="result hide" aria-live="polite">
+        <div class="resultHead">
+          <div id="summaryLine" class="summaryLine">
+            <span>💡</span>
+            <span id="summaryText">結論：</span>
+          </div>
+
+          <div class="labelRow">
+            <div class="labelTitle">
+              <span id="labelDot" class="dot"></span>
+              <span id="labelText">—</span>
+            </div>
+
+            <div class="pillRow">
+              <div class="pill" title="推定スコア">
+                <span>信頼スコア</span>
+                <span id="scoreText">- / 100</span>
+              </div>
+              <div class="pill" title="プラットフォーム推定（Amazon / 楽天 / BASE / Shopify / STORES など）">
+                <span>プラットフォーム</span>
+                <span id="platformText">-</span>
+              </div>
+              <div class="pill" title="対象ドメイン">
+                <span>ドメイン</span>
+                <span id="domainText">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="explanation"></div>
+
+          <details>
+            <summary>▶ 判定の根拠を見る</summary>
+            <div class="evidenceBox">
+              <div class="evGrid">
+                <div class="evCol">
+                  <h4>UI / 表記</h4>
+                  <ul id="evUi"></ul>
+                  <span id="snipUi" class="codeLine hide"></span>
+                </div>
+                <div class="evCol">
+                  <h4>配送</h4>
+                  <ul id="evShip"></ul>
+                  <span id="snipShip" class="codeLine hide"></span>
+                </div>
+                <div class="evCol">
+                  <h4>返品 / 事業者情報</h4>
+                  <ul id="evRet"></ul>
+                  <span id="snipRet" class="codeLine hide"></span>
+                </div>
+              </div>
+
+              <div id="pagesBox" class="pageList" style="margin-top:12px;"></div>
+              <div class="muted" style="margin-top:10px;">
+                ※スコア・判定は「公開ページから取得できた情報」に依存します。ブロック/地域制限/JS描画の影響で取得できない場合があります。
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <h3>配送</h3>
+            <p id="deliveryText" class="big">—</p>
+            <div id="deliveryNote" class="small"></div>
+          </div>
+          <div class="card">
+            <h3>到着目安</h3>
+            <p id="etaText" class="big">—</p>
+            <div id="etaNote" class="small"></div>
+          </div>
+          <div class="card">
+            <h3>返品</h3>
+            <p id="returnText" class="big">—</p>
+            <div id="returnNote" class="small"></div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <div class="sectionTitle">チェックポイント</div>
+            <ul id="notesList"></ul>
+          </div>
+
+          <div class="card">
+            <div class="sectionTitle">向いている人</div>
+            <ul id="goodList"></ul>
+
+            <div style="height:14px;"></div>
+
+            <div class="sectionTitle">注意したい人</div>
+            <ul id="cautionList"></ul>
+          </div>
+        </div>
+
+        <div class="footerNote">
+          ※本診断は公開情報をもとにした推定です。特定の事業者を評価・批判するものではありません。実際の納期・返品条件は販売者の案内をご確認ください。
+        </div>
+      </div>
+    </section>
   </main>
 
   <script>
     const $ = (id) => document.getElementById(id);
 
-    function escapeHtml(v) {
-      return String(v ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#39;");
+    const urlInput = $("urlInput");
+    const goBtn = $("goBtn");
+    const resultBox = $("resultBox");
+
+    function setDot(color) {
+      const dot = $("labelDot");
+      dot.className = "dot";
+      if (color === "green") dot.classList.add("green");
+      else if (color === "yellow") dot.classList.add("yellow");
+      else if (color === "orange") dot.classList.add("orange");
+      else if (color === "red") dot.classList.add("red");
+      else dot.classList.add("orange");
     }
 
-    function dotClass(color) {
-      if (color === "green") return "green";
-      if (color === "yellow") return "yellow";
-      return "orange";
+    function clearList(ul) {
+      ul.innerHTML = "";
+    }
+    function fillList(ul, items) {
+      clearList(ul);
+      (items || []).forEach(t => {
+        const li = document.createElement("li");
+        li.textContent = t;
+        ul.appendChild(li);
+      });
     }
 
-    function listHtml(arr) {
-      if (!Array.isArray(arr) || arr.length === 0) return "<ul><li>（該当なし）</li></ul>";
-      return "<ul>" + arr.map(x => `<li>${escapeHtml(x)}</li>`).join("") + "</ul>";
+    function setMaybeText(el, text) {
+      el.textContent = (text == null || text === "") ? "—" : text;
+    }
+
+    function showSnip(el, snippets) {
+      const list = (snippets || []).filter(Boolean);
+      if (!list.length) {
+        el.classList.add("hide");
+        el.textContent = "";
+        return;
+      }
+      el.classList.remove("hide");
+      el.textContent = list.join(" / ");
+    }
+
+    function normalizePlatform(p) {
+      if (!p) return "-";
+      return String(p);
+    }
+
+    function buildExplanation(result) {
+      // ここは「人に刺さる一言＋透明性」を両立するための短文。
+      // server.js から explanation を返すならそれを優先。
+      if (result.explanation) return result.explanation;
+
+      const score = (typeof result.score === "number") ? result.score : null;
+      const platform = result.platform || result.platformGuess;
+      const gotPages = Array.isArray(result.evidence?.pages) && result.evidence.pages.length;
+
+      const bits = [];
+      if (platform) bits.push(`プラットフォーム推定：${normalizePlatform(platform)}`);
+      if (score != null) bits.push(`信頼スコア：${score}/100`);
+      if (gotPages) bits.push(`参照ページ：${result.evidence.pages.length}件`);
+      return bits.length ? bits.join(" / ") : "";
+    }
+
+    function renderPages(pages) {
+      const box = $("pagesBox");
+      box.innerHTML = "";
+      if (!Array.isArray(pages) || pages.length === 0) return;
+
+      const title = document.createElement("div");
+      title.className = "muted";
+      title.style.marginBottom = "6px";
+      title.textContent = "参照したページ（推定）：";
+      box.appendChild(title);
+
+      pages.forEach(p => {
+        const a = document.createElement("a");
+        a.href = p.url;
+        a.target = "_blank";
+        a.rel = "noreferrer";
+        a.textContent = `・${p.label || "ページ"}：${p.url}`;
+        box.appendChild(a);
+      });
+    }
+
+    function renderResult(result) {
+      resultBox.classList.remove("hide");
+
+      // 基本
+      setDot(result.color);
+      setMaybeText($("labelText"), result.labelText);
+      setMaybeText($("deliveryText"), result.delivery);
+      setMaybeText($("etaText"), result.eta);
+      setMaybeText($("returnText"), result.return);
+
+      // 1行結論（server.js から summary を返すなら優先）
+      const summary = result.summary || `結論：${result.color === "green" ? "国内向けの購入はスムーズになりやすい。" :
+        result.color === "yellow" ? "納期や返品条件の事前確認で“事故”を防げる。" :
+          result.color === "orange" ? "購入前に条件整理が必要。" : "購入前に自己確認が必須。"}`;
+      $("summaryText").textContent = summary;
+
+      // ピル（スコア/プラットフォーム/ドメイン）
+      const score = (typeof result.score === "number") ? result.score : null;
+      $("scoreText").textContent = (score == null) ? "- / 100" : `${score} / 100`;
+
+      const platform = result.platform || result.platformGuess || "-";
+      $("platformText").textContent = normalizePlatform(platform);
+
+      try {
+        const u = new URL(result.url || urlInput.value.trim());
+        $("domainText").textContent = u.hostname || "-";
+      } catch {
+        $("domainText").textContent = "-";
+      }
+
+      // 説明枠（空なら非表示）
+      const exp = buildExplanation(result);
+      $("explanation").textContent = exp;
+
+      // 箇条書き
+      fillList($("notesList"), result.notes || ["最終的な配送日数・返品条件は購入前に公式表記で確認してください。"]);
+      fillList($("goodList"), result.good || ["日常利用", "急ぎの買い物"]);
+      fillList($("cautionList"), result.caution || ["限定商品の在庫切れ", "セール時の在庫変動"]);
+
+      // 根拠
+      fillList($("evUi"), result.evidence?.ui || []);
+      fillList($("evShip"), result.evidence?.ship || []);
+      fillList($("evRet"), result.evidence?.ret || []);
+
+      showSnip($("snipUi"), result.evidence?.snippets?.ui);
+      showSnip($("snipShip"), result.evidence?.snippets?.ship);
+      showSnip($("snipRet"), result.evidence?.snippets?.ret);
+
+      renderPages(result.evidence?.pages || []);
+
+      // メモ欄（使ってないなら空）
+      $("deliveryNote").textContent = "";
+      $("etaNote").textContent = "";
+      $("returnNote").textContent = "";
     }
 
     async function diagnose() {
-      const url = $("urlInput").value.trim();
-      const wrap = $("resultWrap");
-      const btn = $("btn");
-      wrap.innerHTML = "";
-      btn.disabled = true;
-      btn.textContent = "診断中…";
+      const url = urlInput.value.trim();
+      if (!url) {
+        alert("URLを入力してください");
+        return;
+      }
+
+      goBtn.disabled = true;
+      goBtn.textContent = "診断中…";
 
       try {
         const res = await fetch("/api/diagnose", {
@@ -378,80 +736,24 @@
           body: JSON.stringify({ url })
         });
 
-        const data = await res.json();
-
         if (!res.ok) {
-          throw new Error(data?.error || "request_failed");
+          throw new Error("bad_response");
         }
 
-        const color = escapeHtml(data.color || "orange");
-        const labelText = escapeHtml(data.labelText || "");
-        const summary = escapeHtml(data.summary || "");
-        const delivery = escapeHtml(data.delivery || "");
-        const eta = escapeHtml(data.eta || "");
-        const ret = escapeHtml(data.return || "");
+        const data = await res.json();
+        renderResult(data);
 
-        wrap.innerHTML = `
-        <div class="result-card">
-          <div class="result-top">
-            ${summary ? `<div class="summary-line"><span class="bulb">💡</span><span>${summary}</span></div>` : ""}
-            <div class="label">
-              <span class="dot ${dotClass(color)}"></span>
-              <span>${labelText}</span>
-            </div>
-          </div>
-
-          <div class="grid">
-            <div class="pill">
-              <h4>配送</h4>
-              <p>${delivery}</p>
-            </div>
-            <div class="pill">
-              <h4>到着目安</h4>
-              <p>${eta}</p>
-            </div>
-            <div class="pill">
-              <h4>返品</h4>
-              <p>${ret}</p>
-            </div>
-          </div>
-
-          <div class="sections">
-            <div class="sec">
-              <h3>チェックポイント</h3>
-              ${listHtml(data.notes)}
-            </div>
-            <div class="sec">
-              <h3>向いている人</h3>
-              ${listHtml(data.good)}
-              <div style="height:10px"></div>
-              <h3>注意したい人</h3>
-              ${listHtml(data.caution)}
-            </div>
-          </div>
-
-          <div class="footnote">
-            ※本診断は公開情報をもとにした推定です。特定の事業者を評価・批判するものではありません。実際の納期・返品条件は販売者の案内をご確認ください。
-          </div>
-        </div>
-      `;
       } catch (e) {
-        wrap.innerHTML = `
-        <div class="result-card">
-          <div class="result-top">
-            <div class="summary-line"><span class="bulb">⚠️</span><span>診断に失敗しました。URLを確認してください。</span></div>
-          </div>
-          <div class="footnote">例： https://www.sports-ws.com/ のように https:// から入力してください。</div>
-        </div>
-      `;
+        alert("診断に失敗しました。URLを確認してください。");
+        console.error(e);
       } finally {
-        btn.disabled = false;
-        btn.textContent = "診断";
+        goBtn.disabled = false;
+        goBtn.textContent = "診断";
       }
     }
 
-    $("btn").addEventListener("click", diagnose);
-    $("urlInput").addEventListener("keydown", (e) => {
+    goBtn.addEventListener("click", diagnose);
+    urlInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") diagnose();
     });
   </script>
