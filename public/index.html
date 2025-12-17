@@ -7,21 +7,25 @@
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
+  <meta property="og:title" content="Labelly" />
+  <meta property="og:description" content="通販サイトの配送・返品・表記リスクを事前に見える化" />
+  <meta property="og:image" content="/og.svg" />
+
   <style>
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f3f6fb;
       color: #0f172a;
     }
 
     header {
-      padding: 16px;
       background: #0a0f1f;
+      padding: 16px;
       color: #fff;
       text-align: center;
       font-weight: 800;
-      font-size: 26px;
+      font-size: 28px;
     }
 
     main {
@@ -30,62 +34,57 @@
       padding: 0 16px;
     }
 
-    input {
-      width: 100%;
-      padding: 14px;
+    input,
+    button {
       font-size: 16px;
-      border-radius: 10px;
+      padding: 14px;
+      border-radius: 12px;
       border: 1px solid #cbd5e1;
     }
 
     button {
-      margin-top: 12px;
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 800;
-      border-radius: 10px;
-      border: none;
       background: #2f5bff;
       color: #fff;
+      border: none;
+      font-weight: 700;
       cursor: pointer;
     }
 
     .result {
       margin-top: 24px;
       background: #fff;
-      border-radius: 14px;
+      border-radius: 18px;
       padding: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
       display: none;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
     }
 
     .dot {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
+      display: inline-block;
       margin-right: 8px;
     }
 
-    .dot.green {
+    .green {
       background: #16a34a;
     }
 
-    .dot.yellow {
+    .yellow {
       background: #f59e0b;
     }
 
-    .dot.orange {
+    .orange {
       background: #f97316;
     }
 
     .affiliate {
-      margin-top: 18px;
-      padding: 14px;
-      border-radius: 12px;
+      margin-top: 20px;
+      padding: 16px;
       background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      border: 1px dashed #cbd5e1;
       display: none;
     }
 
@@ -103,32 +102,30 @@
   <header>Labelly</header>
 
   <main>
-    <input id="urlInput" type="url" placeholder="https://example.com" />
-    <button id="goBtn">診断する</button>
+    <input id="urlInput" type="url" placeholder="https://example.com" style="width:100%;" />
+    <button id="goBtn" style="width:100%; margin-top:12px;">診断</button>
 
-    <div id="result" class="result">
+    <section id="result" class="result">
       <div>
         <span id="dot" class="dot"></span>
         <strong id="labelText"></strong>
       </div>
 
-      <p id="oneLine" style="margin-top:10px;"></p>
+      <p id="oneLine"></p>
 
-      <!-- アフィリエイト案内 -->
+      <!-- affiliate block -->
       <div id="affiliate" class="affiliate">
-        <p style="margin:0 0 8px;">
-          ※正規モールで同等商品を探すのも一つの選択です
-        </p>
+        <p id="affiliateMessage"></p>
         <a id="amazonLink" target="_blank" rel="noopener">Amazonで探す</a>
         <a id="rakutenLink" target="_blank" rel="noopener">楽天で探す</a>
       </div>
-    </div>
+    </section>
   </main>
 
   <script>
-    const $ = (id) => document.getElementById(id);
+    const $ = id => document.getElementById(id);
 
-    async function diagnose() {
+    $("goBtn").addEventListener("click", async () => {
       const url = $("urlInput").value.trim();
       if (!url) return alert("URLを入力してください");
 
@@ -139,7 +136,10 @@
       });
 
       const data = await res.json();
+      render(data);
+    });
 
+    function render(data) {
       $("result").style.display = "block";
       $("labelText").textContent = data.labelText;
       $("oneLine").textContent = data.oneLine || "";
@@ -147,32 +147,30 @@
       const dot = $("dot");
       dot.className = "dot " + data.color;
 
-      // ===== affiliate logic =====
       const affiliate = $("affiliate");
 
-      const isYellow = data.color === "yellow";
-      const isMajorMall = data.platform === "amazon" || data.platform === "rakuten";
+      const isMall = data.platform === "amazon" || data.platform === "rakuten";
 
-      if (isYellow && !isMajorMall) {
+      if ((data.color === "yellow" || data.color === "orange") && !isMall) {
         affiliate.style.display = "block";
 
-        const keyword = encodeURIComponent(new URL(data.url).hostname);
+        $("affiliateMessage").textContent =
+          data.color === "yellow"
+            ? "※正規モールで同等商品を探すのも一つの選択です"
+            : "※条件が不明確な場合、正規モールでの購入が安心です";
+
+        const q = encodeURIComponent(data.url);
 
         $("amazonLink").href =
-          `https://www.amazon.co.jp/s?k=${keyword}&tag=ksmtaka-22`;
+          `https://www.amazon.co.jp/s?k=${q}&tag=ksmtaka-22`;
 
         $("rakutenLink").href =
-          `https://hb.afl.rakuten.co.jp/hgc/4f46af35.2e32b7db.4f46af36.85561797/?pc=https://search.rakuten.co.jp/search/mall/${keyword}/`;
+          `https://search.rakuten.co.jp/search/mall/${q}/?scid=af_pc_etc&sc2id=af_103_1_10000645&aid=4f46af35.2e32b7db.4f46af36.85561797`;
 
       } else {
         affiliate.style.display = "none";
       }
     }
-
-    $("goBtn").addEventListener("click", diagnose);
-    $("urlInput").addEventListener("keydown", e => {
-      if (e.key === "Enter") diagnose();
-    });
   </script>
 </body>
 </html>
