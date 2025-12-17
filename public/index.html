@@ -42,7 +42,13 @@
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Sans", "Noto Sans JP", sans-serif;
       color: var(--text);
-      background: radial-gradient(1200px 600px at 50% -200px, rgba(47, 91, 255, .18), transparent 60%), var(--bg);
+
+      /* ✅ 繰り返し防止 + 位置固定 */
+      background-image: radial-gradient(1200px 600px at 50% -200px, rgba(47, 91, 255, .18), transparent 60%);
+      background-color: var(--bg);
+      background-repeat: no-repeat;
+      background-position: 50% -200px;
+      background-size: 1200px 600px;
     }
 
     /* Header */
@@ -646,7 +652,7 @@
 
   <main class="wrap">
     <section class="hero">
-      <h1>この通販サイトで「あとから困らないか？」</h1>
+      <h1>この通販サイトで「注文してから困らないかな？」</h1>
       <p>配送・返品・表記など、見落としやすい条件を事前に見える化します。</p>
 
       <div class="inputRow">
