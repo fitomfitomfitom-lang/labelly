@@ -54,25 +54,47 @@
       z-index: 10;
       box-shadow: 0 14px 50px rgba(0, 0, 0, .25);
 
-      /* ここだけ追加：中身を中央寄せ（今の見た目を維持） */
+      /* 追加：中身の縦中央（保険） */
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* ← SVGベースライン由来のズレを消す（重要） */
-    .brand svg {
-      display: block;
-      flex: 0 0 auto;
+    /* ロゴの横並びを強制（2段落ち防止） */
+    .brand {
+      max-width: 980px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      /* これが重要：折り返し禁止 */
+      align-items: center;
+      /* これが重要：縦ズレ防止 */
+      justify-content: center;
+      gap: 14px;
     }
 
-    /* テキスト側の微ズレが出る環境があるので transform を無効化 */
-    .brand .word {
-      transform: none;
-      line-height: 1;
-      color: #fff;
-      font-weight: 800;
+    .brand svg {
+      display: block;
+      /* baselineズレ対策 */
+      width: 44px;
+      height: 44px;
+      /* これが重要：比率崩れ/丸ズレ対策 */
+      flex: 0 0 44px;
     }
+
+    .brand .word {
+      font-weight: 900;
+      letter-spacing: .4px;
+      font-size: 28px;
+      color: #fff;
+      line-height: 1;
+      white-space: nowrap;
+      /* これが重要：文字の折返し防止 */
+      transform: none;
+      /* transformがあると環境でズレるので無効化 */
+    }
+
 
     .wrap {
       max-width: 980px;
@@ -611,7 +633,7 @@
   <header>
     <div class="brand" aria-label="Labelly">
       <a href="https://labelly-dzja.onrender.com/" style="text-decoration: none;">
-        <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg width="44" height="44" viewBox="0 0 44 44" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M7 12a6 6 0 0 1 6-6h18l8 10-8 10H13a6 6 0 0 1-6-6V12z" fill="#2f5bff" />
           <circle cx="15.5" cy="18.5" r="3.1" fill="#fff" />
         </svg>
