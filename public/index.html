@@ -53,28 +53,27 @@
     }
 
     .brand {
-      max-width: 980px;
-      margin: 0 auto;
       display: flex;
+      /* 念のため：既にあってもOK */
       align-items: center;
+      /* 念のため：既にあってもOK */
       justify-content: center;
       gap: 14px;
     }
 
-    /* ←これが重要：SVGのベースライン由来のズレを消す */
     .brand svg {
       display: block;
+      /* 重要：inlineベースライン由来のズレ消し */
       flex: 0 0 auto;
+      vertical-align: middle;
+      /* 念のため */
     }
 
     .brand .word {
-      font-weight: 900;
-      letter-spacing: .4px;
-      font-size: 28px;
-      color: #fff;
       line-height: 1;
-      /* transformは一旦オフ（ズレる環境がある） */
+      /* ベースライン差の影響を減らす */
       transform: none;
+      /* 念のため（残ってたらオフ） */
     }
 
     .wrap {
