@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Labelly</title>
 
+  <!-- Favicon -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
+  <!-- OG -->
   <meta property="og:title" content="Labelly" />
   <meta property="og:description" content="配送・返品・表記など、見落としやすい条件を事前に見える化します。" />
   <meta property="og:image" content="/og.svg" />
@@ -63,12 +65,17 @@
       gap: 14px;
     }
 
+    .brand svg {
+      display: block
+    }
+
     .brand .word {
-      font-weight: 900;
+      font-weight: 800;
       letter-spacing: .4px;
       font-size: 28px;
       color: #fff;
       transform: translateY(2px);
+      /* yの分だけ微調整 */
       line-height: 1;
     }
 
@@ -89,7 +96,7 @@
     .hero h1 {
       margin: 0 0 10px;
       font-size: 18px;
-      font-weight: 900;
+      font-weight: 800;
       color: #334155;
       text-align: center;
       letter-spacing: .2px;
@@ -130,22 +137,22 @@
     button {
       border: 0;
       background: var(--blue);
-      color: #fff;
+      color: white;
       border-radius: 14px;
       padding: 15px 16px;
       font-size: 16px;
-      font-weight: 900;
+      font-weight: 800;
       cursor: pointer;
       box-shadow: 0 12px 26px rgba(47, 91, 255, .25);
       transition: .15s transform, .15s filter;
     }
 
     button:hover {
-      filter: brightness(1.02)
+      filter: brightness(1.02);
     }
 
     button:active {
-      transform: translateY(1px)
+      transform: translateY(1px);
     }
 
     button:disabled {
@@ -162,7 +169,7 @@
       line-height: 1.7;
     }
 
-    /* result card */
+    /* Result */
     .result {
       margin-top: 20px;
       background: var(--panel);
@@ -181,7 +188,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
@@ -189,9 +196,10 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 950;
+      font-weight: 700;
       font-size: 26px;
       letter-spacing: .2px;
+      min-width: 240px;
     }
 
     .dot {
@@ -209,82 +217,83 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: flex-end;
+      margin-left: auto;
     }
 
     .badge {
       display: inline-flex;
-      align-items: center;
       gap: 8px;
+      align-items: center;
       border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 13px;
-      font-weight: 900;
+      padding: 9px 12px;
       border: 1px solid #e2e8f0;
-      background: #f1f5f9;
+      background: #f8fafc;
+      font-size: 13px;
+      font-weight: 700;
       color: #334155;
       white-space: nowrap;
     }
 
-    .badge.dark {
-      background: #0b1226;
-      border-color: #0b1226;
+    .badge .pill {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #94a3b8;
+    }
+
+    .badgePlatform {
+      background: #0b1020;
+      border-color: rgba(255, 255, 255, .1);
       color: #fff;
     }
 
-    .badge .miniDot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #94a3b8;
-      box-shadow: 0 0 0 4px rgba(0, 0, 0, .04);
+    .badgePlatform .pill {
+      background: #fff;
+      opacity: .9;
     }
 
-    .summaryRow {
+    .scoreWrap {
       margin-top: 14px;
       display: grid;
-      grid-template-columns: 170px 1fr;
+      grid-template-columns: 140px 1fr;
       gap: 14px;
-      align-items: stretch;
+      align-items: center;
     }
 
-    .scoreCard {
+    .meter {
       border: 1px solid var(--border);
       border-radius: 18px;
+      padding: 12px;
       background: #fff;
       box-shadow: var(--shadow2);
-      padding: 14px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-height: 92px;
     }
 
-    .scoreTop {
+    .meterTop {
       display: flex;
-      align-items: flex-end;
+      align-items: baseline;
       justify-content: space-between;
       gap: 10px;
+      margin-bottom: 10px;
     }
 
-    .scoreLabel {
-      font-size: 13px;
-      font-weight: 900;
-      color: #475569;
-    }
-
-    .scoreNum {
-      font-size: 24px;
-      font-weight: 950;
+    .meterTop .k {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
       letter-spacing: .2px;
-      color: #0f172a;
+    }
+
+    .meterTop .v {
+      font-weight: 1000;
+      font-size: 22px;
     }
 
     .bar {
       height: 10px;
       border-radius: 999px;
-      background: #e8eef9;
+      background: #eaf0ff;
       overflow: hidden;
-      border: 1px solid #e6edf6;
+      border: 1px solid #dbe7ff;
     }
 
     .bar>div {
@@ -292,27 +301,26 @@
       width: 0%;
       border-radius: 999px;
       background: var(--blue);
-      transition: width .3s ease;
+      transition: width .35s ease;
     }
 
-    .scoreText {
+    .scoreHint {
       border: 1px solid var(--border);
       border-radius: 18px;
+      padding: 14px 14px;
       background: #fff;
       box-shadow: var(--shadow2);
-      padding: 14px 14px;
-      min-height: 92px;
     }
 
-    .scoreGrade {
-      font-weight: 950;
+    .scoreHint .t {
+      font-weight: 1000;
       font-size: 16px;
       margin-bottom: 6px;
+      letter-spacing: .2px;
     }
 
-    .scoreDesc {
-      color: #475569;
-      font-weight: 800;
+    .scoreHint .d {
+      color: var(--muted);
       line-height: 1.7;
       font-size: 13px;
     }
@@ -323,8 +331,8 @@
       border-radius: 14px;
       background: #f1f5f9;
       color: #0f172a;
-      font-weight: 900;
-      line-height: 1.65;
+      font-weight: 700;
+      line-height: 1.6;
       display: flex;
       gap: 10px;
       align-items: flex-start;
@@ -360,7 +368,7 @@
 
     .mini .v {
       font-size: 18px;
-      font-weight: 950;
+      font-weight: 1000;
       line-height: 1.45;
     }
 
@@ -384,7 +392,7 @@
     .box h3 {
       margin: 0 0 10px;
       font-size: 18px;
-      font-weight: 950;
+      font-weight: 1000;
     }
 
     ul {
@@ -402,6 +410,14 @@
       color: var(--muted);
     }
 
+    .footerNote {
+      padding: 0 22px 22px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* Evidence toggle */
     .evidenceWrap {
       padding: 0 22px 22px;
     }
@@ -413,18 +429,18 @@
       cursor: pointer;
       user-select: none;
       color: var(--blue);
-      font-weight: 950;
-      margin-top: 12px;
+      font-weight: 1000;
+      margin-top: 14px;
     }
 
     .toggle .tri {
       display: inline-block;
       transform: rotate(0deg);
-      transition: .15s
+      transition: .15s;
     }
 
     .toggle.open .tri {
-      transform: rotate(90deg)
+      transform: rotate(90deg);
     }
 
     .evidence {
@@ -457,7 +473,7 @@
     .evBox h4 {
       margin: 0 0 10px;
       font-size: 14px;
-      font-weight: 950;
+      font-weight: 1000;
       color: #334155;
     }
 
@@ -482,23 +498,17 @@
       line-height: 1.6;
     }
 
-    .footerNote {
-      padding: 0 22px 22px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.8;
-    }
-
-    a {
+    .urlList a {
       color: var(--blue);
       text-decoration: none;
+      word-break: break-all;
     }
 
-    a:hover {
+    .urlList a:hover {
       text-decoration: underline;
     }
 
-    /* Optional block: emptyなら隠す */
+    /* optional explanation block */
     #explanation:empty {
       display: none !important;
     }
@@ -524,8 +534,12 @@
         font-size: 22px;
       }
 
-      .summaryRow {
+      .scoreWrap {
         grid-template-columns: 1fr;
+      }
+
+      .badges {
+        justify-content: flex-start;
       }
     }
   </style>
@@ -548,7 +562,7 @@
       <p>配送・返品・表記など、見落としやすい条件を事前に見える化します。</p>
 
       <div class="inputRow">
-        <input id="urlInput" type="url" placeholder="https://example.com" value="" />
+        <input id="urlInput" type="url" placeholder="https://example.com" value="https://www.beerbeerbeer.beer/" />
         <button id="goBtn">診断</button>
       </div>
 
@@ -566,25 +580,25 @@
           </div>
 
           <div class="badges">
-            <span class="badge" id="badgeDomain"><span class="miniDot"></span> ドメイン：-</span>
-            <span class="badge dark" id="badgePlatform"><span class="miniDot"></span> 推定：-</span>
+            <span class="badge" id="badgeDomain"><span class="pill"></span><span id="domainText">ドメイン：-</span></span>
+            <span class="badge badgePlatform" id="badgePlatform"><span class="pill"></span><span id="platformText">推定：-</span></span>
           </div>
         </div>
 
-        <div class="summaryRow">
-          <div class="scoreCard">
-            <div class="scoreTop">
-              <div class="scoreLabel">信頼スコア</div>
-              <div class="scoreNum" id="scoreNum">-</div>
+        <div class="scoreWrap">
+          <div class="meter">
+            <div class="meterTop">
+              <div class="k">信頼スコア</div>
+              <div class="v" id="scoreText">-</div>
             </div>
-            <div class="bar">
+            <div class="bar" aria-label="score bar">
               <div id="scoreBar"></div>
             </div>
           </div>
 
-          <div class="scoreText">
-            <div class="scoreGrade" id="scoreGrade">—</div>
-            <div class="scoreDesc" id="scoreDesc">—</div>
+          <div class="scoreHint">
+            <div class="t" id="scoreTitle">—</div>
+            <div class="d" id="scoreDesc">—</div>
           </div>
         </div>
 
@@ -647,7 +661,7 @@
             </div>
             <div class="evBox">
               <h4>確認したURL</h4>
-              <div class="evMono" id="evUrls"></div>
+              <div class="evMono urlList" id="evUrls"></div>
             </div>
           </div>
 
@@ -676,12 +690,13 @@
     const dot = $("dot");
     const labelText = $("labelText");
 
-    const badgeDomain = $("badgeDomain");
+    const domainText = $("domainText");
+    const platformText = $("platformText");
     const badgePlatform = $("badgePlatform");
 
-    const scoreNum = $("scoreNum");
+    const scoreText = $("scoreText");
     const scoreBar = $("scoreBar");
-    const scoreGrade = $("scoreGrade");
+    const scoreTitle = $("scoreTitle");
     const scoreDesc = $("scoreDesc");
 
     const oneLine = $("oneLine");
@@ -726,23 +741,10 @@
       return m[p] || p || "不明";
     }
 
-    function scoreCopy(score, color) {
-      const s = Number.isFinite(score) ? score : 0;
-
-      // 「色」はサーバー基準を尊重しつつ、念のため score でも補正
-      const grade =
-        (color === "green" || s >= 75) ? "高い（かなり安心）" :
-          (color === "yellow" || s >= 50) ? "中（条件確認推奨）" :
-            "低〜要注意（事前確認必須）";
-
-      const desc =
-        (color === "green" || s >= 75)
-          ? "特商法・連絡先・返品などの情報が揃っている可能性が高いです。"
-          : (color === "yellow" || s >= 50)
-            ? "情報はあるが、納期や発送形態がブレやすい可能性。購入前に条件確認を。"
-            : "公開情報の取得や条件確認が難しい可能性。購入前に必ず自己確認を。";
-
-      return { grade, desc };
+    function platformBadgeStyle(p) {
+      // ちょい「プロダクト感」：プラットフォームで雰囲気変える（色は固定しない方針ならここは文字だけでもOK）
+      // 今回は背景を共通（黒）にして、表示テキストで差を出す
+      return;
     }
 
     function clearList(el) { el.innerHTML = ""; }
@@ -777,12 +779,21 @@
       }
     }
 
-    function escapeHtml(s) {
-      return String(s)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;");
+    function scoreCopy(score) {
+      const ensureNum = (v) => (typeof v === "number" && isFinite(v)) ? v : null;
+      const s = ensureNum(score);
+
+      if (s === null) {
+        return { title: "スコア未算出", desc: "取得できた情報が少ない可能性があります。根拠ページを確認してください。" };
+      }
+      if (s >= 80) return { title: "高い（かなり安心）", desc: "特商法・連絡先・返品などの情報が揃っている可能性が高いです。" };
+      if (s >= 60) return { title: "中〜高（概ね安心）", desc: "主要情報は見えるが、配送/返品の条件を最後に確認すると安心です。" };
+      if (s >= 40) return { title: "中（要確認）", desc: "情報はあるが揃いきっていない可能性。配送・返品・特商法ページを先に確認推奨。" };
+      if (s >= 20) return { title: "低め（慎重に）", desc: "公開情報が限定的な可能性があります。購入前に条件の確認が必須です。" };
+      return { title: "かなり低い（要注意）", desc: "取得できた根拠が少ない/取得不可の可能性。購入は慎重に判断してください。" };
     }
+
+    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 
     function renderSnippets(snips) {
       const ui = (snips && snips.ui) ? snips.ui : [];
@@ -793,45 +804,62 @@
       const lines = [];
       if (ui.length) lines.push("UI:\n- " + ui.join("\n- "));
       if (ship.length) lines.push("配送:\n- " + ship.join("\n- "));
-      if (ret.length) lines.push("返品/表記:\n- " + ret.join("\n- "));
+      if (ret.length) lines.push("返品:\n- " + ret.join("\n- "));
       if (contact.length) lines.push("連絡先っぽい表記:\n- " + contact.join("\n- "));
       if (!lines.length) lines.push("（抜粋なし）");
 
-      evSnips.innerHTML = escapeHtml(lines.join("\n\n"));
+      evSnips.textContent = lines.join("\n\n");
     }
 
     function renderUrls(urls) {
+      evUrls.innerHTML = "";
       if (!urls || !urls.length) {
         evUrls.textContent = "（なし）";
         return;
       }
-      evUrls.innerHTML = urls
-        .map(u => `- <a href="${u}" target="_blank" rel="noopener noreferrer">${escapeHtml(u)}</a>`)
-        .join("\n");
+      const frag = document.createDocumentFragment();
+      urls.forEach((u) => {
+        const line = document.createElement("div");
+        line.textContent = "- ";
+        const a = document.createElement("a");
+        a.href = u;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = u;
+        line.appendChild(a);
+        frag.appendChild(line);
+      });
+      evUrls.appendChild(frag);
     }
 
     function render(data) {
       result.style.display = "block";
 
-      const score = Number.isFinite(data.score) ? data.score : 0;
-
+      // header label
       setDotColor(data.color);
       labelText.textContent = data.labelText || "—";
 
+      // domain/platform
       const domain = (() => {
         try { return new URL(data.url).hostname; } catch { return "-"; }
       })();
+      domainText.textContent = `ドメイン：${domain}`;
 
-      badgeDomain.innerHTML = `<span class="miniDot"></span> ドメイン：${escapeHtml(domain)}`;
-      badgePlatform.innerHTML = `<span class="miniDot"></span> 推定：${escapeHtml(platformJa(data.platform))}`;
+      const p = platformJa(data.platform);
+      platformText.textContent = `推定：${p}`;
+      platformBadgeStyle(p);
 
-      scoreNum.textContent = String(score);
-      scoreBar.style.width = Math.max(0, Math.min(100, score)) + "%";
+      // score
+      const score = (typeof data.score === "number" && isFinite(data.score)) ? data.score : null;
+      scoreText.textContent = (score === null) ? "-" : `${score}`;
+      const pct = (score === null) ? 0 : clamp(score, 0, 100);
+      scoreBar.style.width = pct + "%";
 
-      const copy = scoreCopy(score, data.color);
-      scoreGrade.textContent = copy.grade;
-      scoreDesc.textContent = copy.desc;
+      const sc = scoreCopy(score);
+      scoreTitle.textContent = sc.title;
+      scoreDesc.textContent = sc.desc;
 
+      // one-line summary
       if (data.oneLine) {
         oneLine.style.display = "flex";
         oneLineText.textContent = data.oneLine;
@@ -840,6 +868,7 @@
         oneLineText.textContent = "";
       }
 
+      // main fields
       delivery.textContent = data.delivery || "-";
       eta.textContent = data.eta || "-";
       ret.textContent = data.return || "-";
@@ -848,14 +877,16 @@
       addItems(goodList, data.good);
       addItems(cautionList, data.caution);
 
+      // evidence
       const ev = data.evidence || {};
       addEvidenceList(evUi, ev.ui);
       addEvidenceList(evShip, ev.ship);
       addEvidenceList(evRet, ev.ret);
+
       renderUrls(ev.urlsChecked || []);
       renderSnippets(ev.snippets || {});
 
-      // 開閉は毎回閉じる
+      // close evidence by default
       evidence.classList.remove("open");
       toggleEvidence.classList.remove("open");
     }
@@ -873,6 +904,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url: raw }),
         });
+
         if (!res.ok) throw new Error("API error");
         const data = await res.json();
         render(data);
