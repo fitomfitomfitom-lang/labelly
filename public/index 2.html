@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Labelly</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- OG -->
+  <meta property="og:title" content="Labelly" />
+  <meta property="og:description" content="配送・返品・表記など、見落としやすい条件を事前に見える化します。" />
+  <meta property="og:image" content="/og.svg" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e6edf6;
+      --shadow: 0 18px 50px rgba(2, 6, 23, .08);
+      --shadow2: 0 10px 30px rgba(2, 6, 23, .06);
+
+      --blue: #2f5bff;
+      --nav: #0a0f1f;
+      --nav2: #070a12;
+
+      --green: #16a34a;
+      --yellow: #f59e0b;
+      --orange: #f97316;
+      --red: #ef4444;
+
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 50% -200px, rgba(47, 91, 255, .18), transparent 60%), var(--bg);
+    }
+
+    header {
+      padding: 16px 18px;
+      background: linear-gradient(180deg, var(--nav), var(--nav2));
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 14px 50px rgba(0, 0, 0, .25);
+    }
+
+    .brand {
+      max-width: 980px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .brand svg {
+      display: block
+    }
+
+    .brand .word {
+      font-weight: 800;
+      letter-spacing: .4px;
+      font-size: 28px;
+      color: #fff;
+      transform: translateY(2px);
+      /* yの分だけ微調整 */
+      line-height: 1;
+    }
+
+    .wrap {
+      max-width: 980px;
+      margin: 28px auto 60px;
+      padding: 0 16px;
+    }
+
+    .hero {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px 26px 22px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #334155;
+      text-align: center;
+      letter-spacing: .2px;
+    }
+
+    .hero p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .inputRow {
+      display: grid;
+      grid-template-columns: 1fr 110px;
+      gap: 14px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    input[type="url"] {
+      width: 100%;
+      font-size: 18px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 2px solid #dbe7ff;
+      outline: none;
+      background: #eef4ff;
+      transition: .15s;
+    }
+
+    input[type="url"]:focus {
+      border-color: rgba(47, 91, 255, .55);
+      box-shadow: 0 0 0 4px rgba(47, 91, 255, .12);
+      background: #f7faff;
+    }
+
+    button {
+      border: 0;
+      background: var(--blue);
+      color: white;
+      border-radius: 14px;
+      padding: 15px 16px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(47, 91, 255, .25);
+      transition: .15s transform, .15s filter;
+    }
+
+    button:hover {
+      filter: brightness(1.02);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .note {
+      margin-top: 12px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* Result */
+    .result {
+      margin-top: 20px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .resultHead {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .titleRow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .titleLeft {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: .2px;
+      min-width: 240px;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      display: inline-block;
+      box-shadow: 0 0 0 5px rgba(0, 0, 0, .03);
+      flex: 0 0 auto;
+    }
+
+    .badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .badge {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 9px 12px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+      white-space: nowrap;
+    }
+
+    .badge .pill {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #94a3b8;
+    }
+
+    .badgePlatform {
+      background: #0b1020;
+      border-color: rgba(255, 255, 255, .1);
+      color: #fff;
+    }
+
+    .badgePlatform .pill {
+      background: #fff;
+      opacity: .9;
+    }
+
+    .scoreWrap {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .meter {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 12px;
+      background: #fff;
+      box-shadow: var(--shadow2);
+    }
+
+    .meterTop {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .meterTop .k {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .2px;
+    }
+
+    .meterTop .v {
+      font-weight: 1000;
+      font-size: 22px;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      background: #eaf0ff;
+      overflow: hidden;
+      border: 1px solid #dbe7ff;
+    }
+
+    .bar>div {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: var(--blue);
+      transition: width .35s ease;
+    }
+
+    .scoreHint {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 14px;
+      background: #fff;
+      box-shadow: var(--shadow2);
+    }
+
+    .scoreHint .t {
+      font-weight: 1000;
+      font-size: 16px;
+      margin-bottom: 6px;
+      letter-spacing: .2px;
+    }
+
+    .scoreHint .d {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .oneLine {
+      margin-top: 14px;
+      padding: 14px 14px;
+      border-radius: 14px;
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      line-height: 1.6;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .oneLine .bulb {
+      font-size: 18px;
+      line-height: 1.2
+    }
+
+    .grid3 {
+      padding: 18px 22px 6px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .mini {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 16px;
+      background: #fff;
+      box-shadow: var(--shadow2);
+      min-height: 90px;
+    }
+
+    .mini .k {
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .mini .v {
+      font-size: 18px;
+      font-weight: 1000;
+      line-height: 1.45;
+    }
+
+    .split {
+      border-top: 1px solid var(--border);
+      padding: 18px 22px 24px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+    }
+
+    .box {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      padding: 16px 16px;
+      box-shadow: var(--shadow2);
+      min-height: 160px;
+    }
+
+    .box h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 1000;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #0f172a;
+      line-height: 1.8;
+    }
+
+    li {
+      margin: 6px 0
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .footerNote {
+      padding: 0 22px 22px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* Evidence toggle */
+    .evidenceWrap {
+      padding: 0 22px 22px;
+    }
+
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      color: var(--blue);
+      font-weight: 1000;
+      margin-top: 14px;
+    }
+
+    .toggle .tri {
+      display: inline-block;
+      transform: rotate(0deg);
+      transition: .15s;
+    }
+
+    .toggle.open .tri {
+      transform: rotate(90deg);
+    }
+
+    .evidence {
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow2);
+      padding: 14px 14px;
+      display: none;
+    }
+
+    .evidence.open {
+      display: block;
+    }
+
+    .evGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .evBox {
+      border: 1px solid #e9eef7;
+      border-radius: 14px;
+      padding: 12px 12px;
+      background: #fbfdff;
+    }
+
+    .evBox h4 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 1000;
+      color: #334155;
+    }
+
+    .evList {
+      margin: 0;
+      padding-left: 18px;
+      color: #0f172a;
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .evMono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      color: #0f172a;
+      background: #f3f6fb;
+      border: 1px solid #e5edf8;
+      border-radius: 12px;
+      padding: 10px 10px;
+      overflow: auto;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    .urlList a {
+      color: var(--blue);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .urlList a:hover {
+      text-decoration: underline;
+    }
+
+    /* optional explanation block */
+    #explanation:empty {
+      display: none !important;
+    }
+
+    @media (max-width: 820px) {
+      .grid3 {
+        grid-template-columns: 1fr;
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .inputRow {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .titleLeft {
+        font-size: 22px;
+      }
+
+      .scoreWrap {
+        grid-template-columns: 1fr;
+      }
+
+      .badges {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand" aria-label="Labelly">
+      <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M7 12a6 6 0 0 1 6-6h18l8 10-8 10H13a6 6 0 0 1-6-6V12z" fill="#2f5bff" />
+        <circle cx="15.5" cy="18.5" r="3.1" fill="#fff" />
+      </svg>
+      <div class="word">Labelly</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>この通販サイトで「あとから困らないか？」</h1>
+      <p>配送・返品・表記など、見落としやすい条件を事前に見える化します。</p>
+
+      <div class="inputRow">
+        <input id="urlInput" type="url" placeholder="https://example.com" value="https://www.beerbeerbeer.beer/" />
+        <button id="goBtn">診断</button>
+      </div>
+
+      <div class="note">※この診断は公開情報をもとにした推定です。実際の条件は販売者の案内をご確認ください。</div>
+    </section>
+
+    <div class="explain" id="explanation"></div>
+
+    <section id="result" class="result" style="display:none;">
+      <div class="resultHead">
+        <div class="titleRow">
+          <div class="titleLeft">
+            <span id="dot" class="dot"></span>
+            <span id="labelText">—</span>
+          </div>
+
+          <div class="badges">
+            <span class="badge" id="badgeDomain"><span class="pill"></span><span id="domainText">ドメイン：-</span></span>
+            <span class="badge badgePlatform" id="badgePlatform"><span class="pill"></span><span id="platformText">推定：-</span></span>
+          </div>
+        </div>
+
+        <div class="scoreWrap">
+          <div class="meter">
+            <div class="meterTop">
+              <div class="k">信頼スコア</div>
+              <div class="v" id="scoreText">-</div>
+            </div>
+            <div class="bar" aria-label="score bar">
+              <div id="scoreBar"></div>
+            </div>
+          </div>
+
+          <div class="scoreHint">
+            <div class="t" id="scoreTitle">—</div>
+            <div class="d" id="scoreDesc">—</div>
+          </div>
+        </div>
+
+        <div id="oneLine" class="oneLine" style="display:none;">
+          <span class="bulb">💡</span>
+          <div id="oneLineText"></div>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="mini">
+          <div class="k">配送</div>
+          <div class="v" id="delivery">-</div>
+        </div>
+        <div class="mini">
+          <div class="k">到着目安</div>
+          <div class="v" id="eta">-</div>
+        </div>
+        <div class="mini">
+          <div class="k">返品</div>
+          <div class="v" id="ret">-</div>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="box">
+          <h3>チェックポイント</h3>
+          <ul id="notesList"></ul>
+        </div>
+
+        <div class="box">
+          <h3>向いている人</h3>
+          <ul id="goodList"></ul>
+
+          <div style="height:12px;"></div>
+
+          <h3>注意したい人</h3>
+          <ul id="cautionList"></ul>
+
+          <div class="toggle" id="toggleEvidence">
+            <span class="tri">▶</span> 判定の根拠を見る
+          </div>
+        </div>
+      </div>
+
+      <div class="evidenceWrap">
+        <div id="evidence" class="evidence">
+          <div class="evGrid">
+            <div class="evBox">
+              <h4>UI / 基本情報</h4>
+              <ul class="evList" id="evUi"></ul>
+            </div>
+            <div class="evBox">
+              <h4>配送の根拠</h4>
+              <ul class="evList" id="evShip"></ul>
+            </div>
+            <div class="evBox">
+              <h4>返品・表記の根拠</h4>
+              <ul class="evList" id="evRet"></ul>
+            </div>
+            <div class="evBox">
+              <h4>確認したURL</h4>
+              <div class="evMono urlList" id="evUrls"></div>
+            </div>
+          </div>
+
+          <div style="height:12px;"></div>
+
+          <div class="evBox">
+            <h4>抽出した抜粋（短い抜粋のみ）</h4>
+            <div class="evMono" id="evSnips"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerNote">
+        ※本診断は公開情報をもとにした推定です。特定の事業者を評価・批判するものではありません。実際の納期・返品条件は販売者の案内をご確認ください。
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const urlInput = $("urlInput");
+    const goBtn = $("goBtn");
+    const result = $("result");
+
+    const dot = $("dot");
+    const labelText = $("labelText");
+
+    const domainText = $("domainText");
+    const platformText = $("platformText");
+    const badgePlatform = $("badgePlatform");
+
+    const scoreText = $("scoreText");
+    const scoreBar = $("scoreBar");
+    const scoreTitle = $("scoreTitle");
+    const scoreDesc = $("scoreDesc");
+
+    const oneLine = $("oneLine");
+    const oneLineText = $("oneLineText");
+
+    const delivery = $("delivery");
+    const eta = $("eta");
+    const ret = $("ret");
+
+    const notesList = $("notesList");
+    const goodList = $("goodList");
+    const cautionList = $("cautionList");
+
+    const toggleEvidence = $("toggleEvidence");
+    const evidence = $("evidence");
+
+    const evUi = $("evUi");
+    const evShip = $("evShip");
+    const evRet = $("evRet");
+    const evUrls = $("evUrls");
+    const evSnips = $("evSnips");
+
+    function setDotColor(color) {
+      const map = {
+        green: "var(--green)",
+        yellow: "var(--yellow)",
+        orange: "var(--orange)",
+        red: "var(--red)",
+      };
+      dot.style.background = map[color] || "var(--muted)";
+    }
+
+    function platformJa(p) {
+      const m = {
+        amazon: "Amazon",
+        rakuten: "楽天",
+        base: "BASE",
+        shopify: "Shopify",
+        stores: "STORES",
+        unknown: "不明",
+      };
+      return m[p] || p || "不明";
+    }
+
+    function platformBadgeStyle(p) {
+      // ちょい「プロダクト感」：プラットフォームで雰囲気変える（色は固定しない方針ならここは文字だけでもOK）
+      // 今回は背景を共通（黒）にして、表示テキストで差を出す
+      return;
+    }
+
+    function clearList(el) { el.innerHTML = ""; }
+
+    function addItems(el, items) {
+      clearList(el);
+      (items || []).forEach(t => {
+        const li = document.createElement("li");
+        li.textContent = t;
+        el.appendChild(li);
+      });
+      if (!items || items.length === 0) {
+        const li = document.createElement("li");
+        li.className = "muted";
+        li.textContent = "（情報なし）";
+        el.appendChild(li);
+      }
+    }
+
+    function addEvidenceList(el, items) {
+      clearList(el);
+      (items || []).forEach(t => {
+        const li = document.createElement("li");
+        li.textContent = t;
+        el.appendChild(li);
+      });
+      if (!items || items.length === 0) {
+        const li = document.createElement("li");
+        li.className = "muted";
+        li.textContent = "（該当なし）";
+        el.appendChild(li);
+      }
+    }
+
+    function scoreCopy(score) {
+      const ensureNum = (v) => (typeof v === "number" && isFinite(v)) ? v : null;
+      const s = ensureNum(score);
+
+      if (s === null) {
+        return { title: "スコア未算出", desc: "取得できた情報が少ない可能性があります。根拠ページを確認してください。" };
+      }
+      if (s >= 80) return { title: "高い（かなり安心）", desc: "特商法・連絡先・返品などの情報が揃っている可能性が高いです。" };
+      if (s >= 60) return { title: "中〜高（概ね安心）", desc: "主要情報は見えるが、配送/返品の条件を最後に確認すると安心です。" };
+      if (s >= 40) return { title: "中（要確認）", desc: "情報はあるが揃いきっていない可能性。配送・返品・特商法ページを先に確認推奨。" };
+      if (s >= 20) return { title: "低め（慎重に）", desc: "公開情報が限定的な可能性があります。購入前に条件の確認が必須です。" };
+      return { title: "かなり低い（要注意）", desc: "取得できた根拠が少ない/取得不可の可能性。購入は慎重に判断してください。" };
+    }
+
+    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+
+    function renderSnippets(snips) {
+      const ui = (snips && snips.ui) ? snips.ui : [];
+      const ship = (snips && snips.ship) ? snips.ship : [];
+      const ret = (snips && snips.ret) ? snips.ret : [];
+      const contact = (snips && snips.contact) ? snips.contact : [];
+
+      const lines = [];
+      if (ui.length) lines.push("UI:\n- " + ui.join("\n- "));
+      if (ship.length) lines.push("配送:\n- " + ship.join("\n- "));
+      if (ret.length) lines.push("返品:\n- " + ret.join("\n- "));
+      if (contact.length) lines.push("連絡先っぽい表記:\n- " + contact.join("\n- "));
+      if (!lines.length) lines.push("（抜粋なし）");
+
+      evSnips.textContent = lines.join("\n\n");
+    }
+
+    function renderUrls(urls) {
+      evUrls.innerHTML = "";
+      if (!urls || !urls.length) {
+        evUrls.textContent = "（なし）";
+        return;
+      }
+      const frag = document.createDocumentFragment();
+      urls.forEach((u) => {
+        const line = document.createElement("div");
+        line.textContent = "- ";
+        const a = document.createElement("a");
+        a.href = u;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = u;
+        line.appendChild(a);
+        frag.appendChild(line);
+      });
+      evUrls.appendChild(frag);
+    }
+
+    function render(data) {
+      result.style.display = "block";
+
+      // header label
+      setDotColor(data.color);
+      labelText.textContent = data.labelText || "—";
+
+      // domain/platform
+      const domain = (() => {
+        try { return new URL(data.url).hostname; } catch { return "-"; }
+      })();
+      domainText.textContent = `ドメイン：${domain}`;
+
+      const p = platformJa(data.platform);
+      platformText.textContent = `推定：${p}`;
+      platformBadgeStyle(p);
+
+      // score
+      const score = (typeof data.score === "number" && isFinite(data.score)) ? data.score : null;
+      scoreText.textContent = (score === null) ? "-" : `${score}`;
+      const pct = (score === null) ? 0 : clamp(score, 0, 100);
+      scoreBar.style.width = pct + "%";
+
+      const sc = scoreCopy(score);
+      scoreTitle.textContent = sc.title;
+      scoreDesc.textContent = sc.desc;
+
+      // one-line summary
+      if (data.oneLine) {
+        oneLine.style.display = "flex";
+        oneLineText.textContent = data.oneLine;
+      } else {
+        oneLine.style.display = "none";
+        oneLineText.textContent = "";
+      }
+
+      // main fields
+      delivery.textContent = data.delivery || "-";
+      eta.textContent = data.eta || "-";
+      ret.textContent = data.return || "-";
+
+      addItems(notesList, data.notes);
+      addItems(goodList, data.good);
+      addItems(cautionList, data.caution);
+
+      // evidence
+      const ev = data.evidence || {};
+      addEvidenceList(evUi, ev.ui);
+      addEvidenceList(evShip, ev.ship);
+      addEvidenceList(evRet, ev.ret);
+
+      renderUrls(ev.urlsChecked || []);
+      renderSnippets(ev.snippets || {});
+
+      // close evidence by default
+      evidence.classList.remove("open");
+      toggleEvidence.classList.remove("open");
+    }
+
+    async function diagnose() {
+      const raw = (urlInput.value || "").trim();
+      if (!raw) { alert("URLを入力してください"); return; }
+
+      goBtn.disabled = true;
+      goBtn.textContent = "診断中…";
+
+      try {
+        const res = await fetch("/api/diagnose", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: raw }),
+        });
+
+        if (!res.ok) throw new Error("API error");
+        const data = await res.json();
+        render(data);
+      } catch (e) {
+        alert("診断に失敗しました。URLを確認してください。");
+      } finally {
+        goBtn.disabled = false;
+        goBtn.textContent = "診断";
+      }
+    }
+
+    goBtn.addEventListener("click", diagnose);
+    urlInput.addEventListener("keydown", (e) => { if (e.key === "Enter") diagnose(); });
+
+    toggleEvidence.addEventListener("click", () => {
+      const open = evidence.classList.toggle("open");
+      toggleEvidence.classList.toggle("open", open);
+    });
+  </script>
+</body>
+</html>
